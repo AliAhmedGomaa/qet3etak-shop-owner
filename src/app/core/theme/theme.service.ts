@@ -1,4 +1,5 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
+import { BrandingService } from '../branding/branding.service';
 
 export type ColorTheme = 'light' | 'dark';
 
@@ -6,9 +7,9 @@ const STORAGE_KEY = 'qet3etak.shop.theme';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
+  private readonly branding = inject(BrandingService);
   readonly theme = signal<ColorTheme>('light');
 
-  /** Apply saved preference, or system preference if none saved. */
   init(): void {
     this.apply(this.resolveInitial());
   }
@@ -48,7 +49,8 @@ export class ThemeService {
     try {
       localStorage.setItem(STORAGE_KEY, theme);
     } catch {
-      /* ignore quota / private mode */
+      /* ignore */
     }
+    this.branding.reapply();
   }
 }

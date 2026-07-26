@@ -10,6 +10,7 @@ import { AuthService } from '../core/auth/auth.service';
 import { CartService } from '../core/cart/cart.service';
 import { ChatService } from '../core/chat/chat.service';
 import { ThemeService } from '../core/theme/theme.service';
+import { BrandingService } from '../core/branding/branding.service';
 
 @Component({
   selector: 'app-shop-shell',
@@ -23,6 +24,7 @@ export class ShopShell {
   protected readonly cart = inject(CartService);
   protected readonly chat = inject(ChatService);
   protected readonly theme = inject(ThemeService);
+  protected readonly branding = inject(BrandingService);
 
   protected readonly cartLabel = computed(() => {
     const n = this.cart.itemCount();

@@ -21,9 +21,17 @@ export class PushNotificationService {
     this.busy.set(true);
     this.lastError.set(null);
     this.supported.set(this.isPushSupported());
+    console.info('[push:shop] enable start', {
+      supported: this.supported(),
+      swPush: !!this.swPush,
+      swEnabled: this.swPush?.isEnabled ?? false,
+      permission:
+        typeof Notification !== 'undefined' ? Notification.permission : 'n/a',
+    });
     try {
       if (!this.swPush) {
         this.lastError.set('خدمة الإشعارات غير مهيأة في التطبيق');
+        console.warn('[push:shop] enable aborted — no SwPush');
         return false;
       }
 
@@ -31,16 +39,19 @@ export class PushNotificationService {
         this.lastError.set(
           'Service Worker غير مفعّل (استخدم نسخة الإنتاج / HTTPS)',
         );
+        console.warn('[push:shop] enable aborted — SW not enabled');
         return false;
       }
 
       const permission = await Notification.requestPermission();
+      console.info('[push:shop] permission=', permission);
       if (permission !== 'granted') {
         this.lastError.set('تم رفض إذن الإشعارات');
         return false;
       }
 
       const key = await this.resolveVapidPublicKey();
+      console.info('[push:shop] vapid key length=', key?.length ?? 0);
       if (!key) {
         this.lastError.set('مفتاح الإشعارات غير متوفر على الخادم');
         return false;
@@ -52,9 +63,19 @@ export class PushNotificationService {
       const json = sub.toJSON();
       if (!json.endpoint || !json.keys?.['p256dh'] || !json.keys?.['auth']) {
         this.lastError.set('تعذر إنشاء اشتراك الإشعارات في المتصفح');
+        console.warn('[push:shop] incomplete subscription JSON', json);
         return false;
       }
 
+      console.info('[push:shop] posting subscribe', {
+        endpointHost: (() => {
+          try {
+            return new URL(json.endpoint!).host;
+          } catch {
+            return 'invalid';
+          }
+        })(),
+      });
       await firstValueFrom(
         this.http.post(`${environment.apiUrl}/wholesale/push/subscribe`, {
           endpoint: json.endpoint,
@@ -63,9 +84,11 @@ export class PushNotificationService {
       );
       this.enabled.set(true);
       localStorage.setItem(ENABLED_KEY, '1');
+      console.info('[push:shop] enable OK');
       return true;
     } catch (err) {
       this.lastError.set(this.formatError(err));
+      console.error('[push:shop] enable FAILED', err);
       return false;
     } finally {
       this.busy.set(false);

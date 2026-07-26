@@ -1,6 +1,6 @@
 <section class="login safe-area-page" dir="rtl">
   <div class="login__top">
-    <a class="login__back" routerLink="/">قطع الغيار</a>
+    <a class="login__back" routerLink="/">{{ branding.branding().appName }}</a>
     <button type="button" class="login__theme" (click)="theme.toggle()">
       {{ theme.theme() === 'dark' ? '☀ فاتح' : '☾ داكن' }}
     </button>

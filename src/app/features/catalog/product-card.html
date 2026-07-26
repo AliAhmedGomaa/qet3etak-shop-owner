@@ -19,6 +19,9 @@
       <div>
         <span class="unit">{{ pricing().unitPrice | currency: 'EGP':'symbol-narrow':'1.2-2' }}</span>
         <span class="per"> / وحدة</span>
+        @if ((product().shopDiscountPercent ?? 0) > 0) {
+          <span class="tier-tag">خصم متجر {{ product().shopDiscountPercent }}%</span>
+        }
         @if (pricing().isTiered) {
           <span class="tier-tag">خصم جملة</span>
         }

@@ -21,7 +21,11 @@ export interface CatalogProduct {
   part?: string;
   qualityGrade: QualityGrade;
   stockQuantity: number;
+  /** Effective unit price for this shop (after shop discount). */
   basePrice: number;
+  /** Original catalog price before shop discount (when different). */
+  listPrice?: number;
+  shopDiscountPercent?: number;
   tieredPricing: TieredPrice[];
   imageUrl: string;
   sku?: string;

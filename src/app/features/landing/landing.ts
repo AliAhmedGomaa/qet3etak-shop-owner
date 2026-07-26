@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { BrandingService } from '../../core/branding/branding.service';
 
 @Component({
   selector: 'app-landing',
@@ -8,4 +9,6 @@ import { RouterLink } from '@angular/router';
   styleUrl: './landing.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Landing {}
+export class Landing {
+  protected readonly branding = inject(BrandingService);
+}

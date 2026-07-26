@@ -16,6 +16,7 @@ export interface ShopUser {
   status: UserStatus;
   role: UserRole;
   rejectionReason?: string;
+  shopDiscountPercent?: number;
 }
 
 export interface AuthResponse {

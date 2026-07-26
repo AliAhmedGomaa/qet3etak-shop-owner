@@ -1,9 +1,13 @@
 <div class="shell" dir="rtl">
   <header class="shell__top">
     <a routerLink="/home" class="shell__brand">
-      <img src="icons/icon-192x192.png" width="36" height="36" alt="" />
+      @if (branding.branding().logoUrl; as logo) {
+        <img [src]="logo" width="36" height="36" alt="" />
+      } @else {
+        <img src="icons/icon-192x192.png" width="36" height="36" alt="" />
+      }
       <span>
-        <strong>قطع الغيار</strong>
+        <strong>{{ branding.branding().appName }}</strong>
         <small>{{ auth.user()?.shopName }}</small>
       </span>
     </a>

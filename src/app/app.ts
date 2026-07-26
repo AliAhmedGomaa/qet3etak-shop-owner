@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { InstallAppBanner } from './shared/install-app-banner/install-app-banner';
 import { ThemeService } from './core/theme/theme.service';
+import { BrandingService } from './core/branding/branding.service';
 
 @Component({
   selector: 'app-root',
@@ -23,12 +24,13 @@ import { ThemeService } from './core/theme/theme.service';
 export class App implements OnInit {
   private readonly swUpdate = inject(SwUpdate, { optional: true });
   private readonly theme = inject(ThemeService);
+  private readonly branding = inject(BrandingService);
 
   ngOnInit(): void {
     this.theme.init();
+    this.branding.init();
     if (isDevMode() || !this.swUpdate?.isEnabled) return;
 
-    // Drop stale cached bundles (e.g. old Render API URL) as soon as a new build is ready.
     this.swUpdate.versionUpdates
       .pipe(filter((e): e is VersionReadyEvent => e.type === 'VERSION_READY'))
       .subscribe(() => {

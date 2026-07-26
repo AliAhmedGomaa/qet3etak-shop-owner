@@ -1,6 +1,6 @@
 <section class="landing" dir="rtl">
   <header class="landing__nav">
-    <a routerLink="/" class="landing__nav-brand">قطع الغيار</a>
+    <a routerLink="/" class="landing__nav-brand">{{ branding.branding().appName }}</a>
     <div class="landing__nav-links">
       <a routerLink="/login">دخول التجار</a>
       <a routerLink="/register" class="landing__nav-cta">سجّل متجرك</a>
@@ -14,7 +14,7 @@
     <figure class="landing__visual" aria-hidden="true">
       <img
         class="landing__parts"
-        src="icons/icon-512x512.png"
+        [src]="branding.branding().logoUrl || 'icons/icon-512x512.png'"
         width="512"
         height="512"
         alt=""
@@ -24,10 +24,10 @@
     </figure>
 
     <div class="landing__copy">
-      <p class="landing__brand">قطع الغيار</p>
+      <p class="landing__brand">{{ branding.branding().appName }}</p>
       <h1 class="landing__headline">جملة الموبايل للمحلات</h1>
       <p class="landing__lead">
-        كتالوج حي، أسعار شرائح، وطلبات نادرة — منصة واحدة لتجّار قطع الغيار.
+        {{ branding.branding().tagline || 'كتالوج حي، أسعار شرائح، وطلبات نادرة — منصة واحدة لتجّار قطع الغيار.' }}
       </p>
 
       <div class="landing__ctas">
@@ -61,7 +61,7 @@
   </section>
 
   <footer class="landing__footer">
-    <strong>قطع الغيار</strong>
-    <span>منصة الجملة لتجار قطع غيار الموبايل</span>
+    <strong>{{ branding.branding().appName }}</strong>
+    <span>{{ branding.branding().tagline || 'منصة الجملة لتجار قطع غيار الموبايل' }}</span>
   </footer>
 </section>
