@@ -113,7 +113,6 @@ export class PushNotificationService {
       const saved = await firstValueFrom(
         this.http.post<{
           confirmationSent?: number;
-          tickleSent?: number;
           keyLens?: { p256dh: number; auth: number };
         }>(`${environment.apiUrl}/wholesale/push/subscribe`, {
           endpoint: json.endpoint,
@@ -123,39 +122,8 @@ export class PushNotificationService {
       console.info('[push:shop] subscribe response', saved);
       this.enabled.set(true);
       localStorage.setItem(ENABLED_KEY, '1');
-
-      // SW-originated local notification (same path as real push display).
-      ready.active?.postMessage({
-        type: 'SHOW_LOCAL',
-        title: 'اختبار Service Worker',
-        body: 'إذا رأيت هذا، فـ showNotification من الـ SW يعمل',
-        tag: `sw-selftest-${Date.now()}`,
-        data: { url: '/home' },
-      });
-
+      this.lastError.set(null);
       this.startInboxPolling();
-      // Immediate pull — welcome/test items land in the inbox too.
-      void this.pullInbox();
-
-      const serverNote = `السيرفر: tickle=${saved.tickleSent ?? 0} تأكيد=${saved.confirmationSent ?? 0}`;
-      console.info('[push:shop] enable OK', serverNote);
-      this.lastError.set(
-        (saved.tickleSent || saved.confirmationSent)
-          ? `تم الإرسال من السيرفر (${serverNote}). إن لم يظهر إشعار، افحص إعدادات إشعارات Chrome في النظام.`
-          : `السيرفر لم يرسل (${serverNote}). أعد المحاولة.`,
-      );
-
-      try {
-        new Notification('تم تفعيل الإشعارات', {
-          body: serverNote,
-          tag: `local-welcome-${Date.now()}`,
-          dir: 'rtl',
-          lang: 'ar',
-        });
-      } catch (err) {
-        console.warn('[push:shop] local Notification failed', err);
-      }
-
       return true;
     } catch (err) {
       this.lastError.set(this.formatError(err));

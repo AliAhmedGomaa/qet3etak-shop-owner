@@ -18,7 +18,6 @@ import {
   CatalogCategory,
   CatalogProduct,
 } from '../../core/catalog/catalog.models';
-import { PushNotificationService } from '../../core/push/push-notification.service';
 import { resolveMediaUrl } from '../../core/media/media-url';
 import { environment } from '../../../environments/environment';
 
@@ -44,7 +43,6 @@ export class Home implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
 
   protected readonly auth = inject(AuthService);
-  protected readonly push = inject(PushNotificationService);
 
   protected readonly error = signal<string | null>(null);
   protected readonly loading = signal(true);

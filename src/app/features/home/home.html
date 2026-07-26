@@ -11,30 +11,6 @@
     <p class="home__error" role="alert">{{ error() }}</p>
   }
 
-  <section class="push-card" aria-label="إشعارات التطبيق">
-    <div class="push-card__text">
-      <strong>إشعارات الطلبات والدعم</strong>
-      <p>
-        فعّل الإشعارات ليصلك تنبيه عند تحديث الطلب أو رسالة من الدعم — حتى والصفحة مغلقة.
-      </p>
-      @if (!push.supported()) {
-        <small>الإشعارات تحتاج نسخة الإنتاج (HTTPS) ومتصفح يدعمها.</small>
-      }
-      @if (push.lastError(); as err) {
-        <small class="err">{{ err }}</small>
-      }
-    </div>
-    <button
-      type="button"
-      class="push-card__btn"
-      [class.on]="push.enabled()"
-      [disabled]="push.busy() || !push.supported()"
-      (click)="push.toggle()"
-    >
-      {{ push.enabled() ? 'مفعّلة — إيقاف' : 'تفعيل الإشعارات' }}
-    </button>
-  </section>
-
   <section class="hero" aria-roledescription="carousel" aria-label="عروض رئيسية">
     <div class="hero__viewport">
       @for (slide of slides; track slide.id; let i = $index) {
