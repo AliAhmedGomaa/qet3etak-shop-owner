@@ -12,7 +12,7 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideHttpClient(withInterceptors([timeoutInterceptor, authInterceptor])),
-    provideServiceWorker('ngsw-worker.js', {
+    provideServiceWorker('push-sw.js', {
       enabled: !isDevMode(),
       // Register ASAP so Android Chrome can treat the site as installable
       // (beforeinstallprompt requires an active controlling service worker).

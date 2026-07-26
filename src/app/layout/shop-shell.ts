@@ -11,6 +11,7 @@ import { CartService } from '../core/cart/cart.service';
 import { ChatService } from '../core/chat/chat.service';
 import { ThemeService } from '../core/theme/theme.service';
 import { BrandingService } from '../core/branding/branding.service';
+import { PushNotificationService } from '../core/push/push-notification.service';
 
 @Component({
   selector: 'app-shop-shell',
@@ -25,6 +26,7 @@ export class ShopShell {
   protected readonly chat = inject(ChatService);
   protected readonly theme = inject(ThemeService);
   protected readonly branding = inject(BrandingService);
+  protected readonly push = inject(PushNotificationService);
 
   protected readonly cartLabel = computed(() => {
     const n = this.cart.itemCount();
@@ -34,6 +36,9 @@ export class ShopShell {
   constructor() {
     // Open the support socket once the app is running in the browser so the
     // unread badge stays live across the whole app (SSR-safe).
-    afterNextRender(() => this.chat.connect());
+    afterNextRender(() => {
+      this.chat.connect();
+      this.push.listenForPush();
+    });
   }
 }

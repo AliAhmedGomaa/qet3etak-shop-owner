@@ -74,16 +74,16 @@ export class ChatService {
     const trimmed = text.trim();
     if (!trimmed) return;
 
-    if (this.socket && this.connected()) {
-      this.socket.emit('message:send', { text: trimmed });
-      return;
-    }
-    // Fallback to REST when the socket is unavailable.
+    // Always use REST so web-push completes on Vercel serverless.
+    // Sockets remain for live message:new / typing only.
     this.http
       .post<ChatMessage>(`${environment.apiUrl}/wholesale/chat`, {
         text: trimmed,
       })
-      .subscribe((message) => this.onMessage(message));
+      .subscribe({
+        next: (message) => this.onMessage(message),
+        error: (err) => console.error('[chat] send failed', err),
+      });
   }
 
   markRead(): void {
@@ -120,6 +120,26 @@ export class ChatService {
     );
     if (message.senderRole === 'ADMIN') {
       this.adminTyping.set(false);
+      this.notifyIfBackground('دعم قطع الغيار', message.text);
+    }
+  }
+
+  /** Fallback when FCM push is blocked by the OS but the tab is still open. */
+  private notifyIfBackground(title: string, body: string): void {
+    if (typeof document === 'undefined' || typeof Notification === 'undefined') {
+      return;
+    }
+    if (Notification.permission !== 'granted') return;
+    if (document.visibilityState === 'visible') return;
+    try {
+      new Notification(title, {
+        body: body.slice(0, 120),
+        tag: `chat-local-${Date.now()}`,
+        dir: 'rtl',
+        lang: 'ar',
+      });
+    } catch {
+      /* ignore */
     }
   }
 }
