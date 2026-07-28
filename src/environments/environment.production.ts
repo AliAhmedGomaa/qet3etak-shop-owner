@@ -5,4 +5,5 @@ export const environment = {
   whatsappSupport: '201000000000',
   vapidPublicKey:
     'BIpdBhQLp8xD2XZy5-o76hlYfi1EhcT346-Dc9g_5RSbDDHDvfjH6heXTS58P8xqchz79ZxYctdUIUQgMqkCNX0',
+  customerPortalUrl: 'https://qet3etak-customer-portal.vercel.app',
 };

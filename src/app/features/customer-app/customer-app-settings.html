@@ -1,0 +1,131 @@
+<section class="cap" dir="rtl">
+  <header class="cap__head">
+    <div>
+      <h1>تطبيق العملاء</h1>
+      <p>
+        خصّص اسم محلك وشعارك وألوانك لصفحة الحجز والتتبع التي يفتحها عملاؤك —
+        دون التأثير على منصة الجملة.
+      </p>
+    </div>
+  </header>
+
+  @if (error()) {
+    <p class="err">{{ error() }}</p>
+  }
+  @if (success()) {
+    <p class="ok">{{ success() }}</p>
+  }
+
+  @if (loading()) {
+    <p class="muted">جارٍ التحميل…</p>
+  } @else {
+    <div class="cap__grid">
+      <form class="card" [formGroup]="form" (ngSubmit)="save()">
+        <h2>الهوية</h2>
+
+        <label class="toggle">
+          <input formControlName="enabled" type="checkbox" />
+          <span>تفعيل هوية المحل في تطبيق العملاء</span>
+        </label>
+
+        <label>
+          <span>اسم التطبيق / المحل</span>
+          <input formControlName="displayName" type="text" />
+        </label>
+
+        <label>
+          <span>وصف مختصر</span>
+          <input formControlName="tagline" type="text" />
+        </label>
+
+        <label>
+          <span>رابط قصير (إنجليزي)</span>
+          <input
+            formControlName="slug"
+            type="text"
+            placeholder="my-shop"
+            autocomplete="off"
+          />
+          <small class="hint">حروف إنجليزية وأرقام وشرطات فقط — اختياري</small>
+        </label>
+
+        <div class="colors">
+          <label>
+            <span>اللون الرئيسي</span>
+            <div class="swatch">
+              <input formControlName="accentColor" type="color" />
+              <input formControlName="accentColor" type="text" maxlength="7" />
+            </div>
+          </label>
+          <label>
+            <span>لون التأكيد</span>
+            <div class="swatch">
+              <input formControlName="accentStrongColor" type="color" />
+              <input formControlName="accentStrongColor" type="text" maxlength="7" />
+            </div>
+          </label>
+          <label>
+            <span>اللون الداكن</span>
+            <div class="swatch">
+              <input formControlName="brandColor" type="color" />
+              <input formControlName="brandColor" type="text" maxlength="7" />
+            </div>
+          </label>
+        </div>
+
+        <button type="submit" class="btn primary" [disabled]="saving() || form.invalid">
+          {{ saving() ? 'جارٍ الحفظ…' : 'حفظ الهوية' }}
+        </button>
+      </form>
+
+      <div class="side">
+        <div class="card">
+          <h2>الشعار</h2>
+          @if (preview()?.logoUrl) {
+            <div class="logo">
+              <img [src]="preview()!.logoUrl" alt="شعار المحل" />
+            </div>
+          } @else {
+            <p class="muted">لم يُرفع شعار بعد.</p>
+          }
+          <label class="upload">
+            <input
+              type="file"
+              accept="image/png,image/jpeg,image/webp,image/svg+xml"
+              (change)="onLogoSelected($event)"
+              [disabled]="uploading()"
+            />
+            <span>{{ uploading() ? 'جارٍ الرفع…' : 'رفع شعار' }}</span>
+          </label>
+
+          @if (preview(); as b) {
+            <div
+              class="live"
+              [style.--p-accent]="form.value.accentColor || b.accentColor"
+              [style.--p-brand]="form.value.brandColor || b.brandColor"
+            >
+              <div class="live__mark">
+                @if (b.logoUrl) {
+                  <img [src]="b.logoUrl" alt="" />
+                } @else {
+                  <span>{{ (form.value.displayName || b.displayName).slice(0, 1) }}</span>
+                }
+              </div>
+              <div>
+                <strong>{{ form.value.displayName || b.displayName }}</strong>
+                <small>{{ form.value.tagline || b.tagline }}</small>
+              </div>
+            </div>
+          }
+        </div>
+
+        <div class="card">
+          <h2>رابط تطبيق العملاء</h2>
+          <p class="muted">أرسل هذا الرابط لعملائك ليفتحوا حجز وتتبع بإسم محلك.</p>
+          <code class="link">{{ shareUrl() }}</code>
+          <button type="button" class="btn ghost" (click)="copyLink()">نسخ الرابط</button>
+        </div>
+      </div>
+    </div>
+  }
+</section>

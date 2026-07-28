@@ -2,6 +2,8 @@
  * Minimal push service worker — no Angular ngsw importScripts.
  * Isolates web-push delivery from ngsw lifecycle issues.
  */
+const DEFAULT_URL = '/home';
+
 self.addEventListener('install', (event) => {
   self.skipWaiting();
 });
@@ -71,6 +73,12 @@ async function handlePush(event) {
     data.body ||
     (event.data ? '' : 'إشعار من السيرفر — مسار الدفع يعمل');
 
+  const url =
+    (n.data && n.data.url) ||
+    data.url ||
+    (data.data && data.data.url) ||
+    DEFAULT_URL;
+
   try {
     await self.registration.showNotification(title, {
       body,
@@ -79,7 +87,7 @@ async function handlePush(event) {
       tag: n.tag || `qet3etak-${Date.now()}`,
       renotify: true,
       requireInteraction: true,
-      data: n.data || { url: '/home' },
+      data: Object.assign({}, n.data || {}, { url: url }),
       dir: 'rtl',
       lang: 'ar',
     });
@@ -89,6 +97,7 @@ async function handlePush(event) {
     await self.registration.showNotification(title || 'قطع غيار', {
       body: String(body || 'إشعار جديد'),
       tag: `qet3etak-fallback-${Date.now()}`,
+      data: { url: url },
     });
   }
 }
@@ -98,9 +107,11 @@ self.addEventListener('notificationclick', (event) => {
     (event.notification &&
       event.notification.data &&
       event.notification.data.url) ||
-    '/home';
+    DEFAULT_URL;
   event.notification.close();
-  const target = new URL(rawUrl, self.location.origin).href;
+  const path =
+    typeof rawUrl === 'string' && rawUrl.startsWith('/') ? rawUrl : DEFAULT_URL;
+  const target = new URL(path, self.location.origin).href;
   event.waitUntil(
     (async () => {
       const windows = await self.clients.matchAll({
@@ -108,10 +119,20 @@ self.addEventListener('notificationclick', (event) => {
         includeUncontrolled: true,
       });
       for (const client of windows) {
-        if ('focus' in client) {
-          await client.focus();
-          return;
+        if ('focus' in client) await client.focus();
+        try {
+          client.postMessage({ type: 'NAVIGATE', url: path });
+        } catch {
+          /* ignore */
         }
+        if ('navigate' in client && typeof client.navigate === 'function') {
+          try {
+            await client.navigate(target);
+          } catch {
+            /* ignore — SPA may handle NAVIGATE */
+          }
+        }
+        return;
       }
       await self.clients.openWindow(target);
     })(),

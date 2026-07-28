@@ -127,6 +127,13 @@ export const routes: Routes = [
           import('./features/repairs/repairs').then((m) => m.RepairsPage),
       },
       {
+        path: 'customer-app',
+        loadComponent: () =>
+          import('./features/customer-app/customer-app-settings').then(
+            (m) => m.CustomerAppSettings,
+          ),
+      },
+      {
         path: 'support',
         loadComponent: () =>
           import('./features/support/support-chat').then((m) => m.SupportChat),
