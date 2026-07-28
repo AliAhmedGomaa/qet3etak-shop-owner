@@ -1,0 +1,137 @@
+<section class="repairs" dir="rtl">
+  <header>
+    <div>
+      <h1>تذاكر الإصلاح</h1>
+      <p>أنشئ تذكرة للعميل، اربط قطعة من المخزون، وحدّث الحالة.</p>
+    </div>
+    <button type="button" class="ghost" (click)="reload()">تحديث</button>
+  </header>
+
+  @if (error()) {
+    <p class="err">{{ error() }}</p>
+  }
+
+  <form class="create" (ngSubmit)="create()">
+    <h2>تذكرة جديدة</h2>
+    <div class="grid">
+      <label>
+        اسم العميل
+        <input [(ngModel)]="customerName" name="cn" required />
+      </label>
+      <label>
+        هاتف العميل
+        <input [(ngModel)]="customerPhone" name="cp" dir="ltr" required />
+      </label>
+      <label>
+        الموديل
+        <input [(ngModel)]="deviceModel" name="dm" required />
+      </label>
+      <label>
+        أجور العمالة
+        <input type="number" [(ngModel)]="laborFee" name="lf" min="0" />
+      </label>
+      <label class="full">
+        وصف العطل
+        <input [(ngModel)]="issueDescription" name="id" required />
+      </label>
+    </div>
+    <button type="submit" class="primary" [disabled]="saving()">إنشاء تذكرة</button>
+  </form>
+
+  @if (loading()) {
+    <p class="muted">جارٍ التحميل…</p>
+  } @else if (tickets().length === 0) {
+    <p class="muted">لا توجد تذاكر بعد.</p>
+  } @else {
+    <ul class="list">
+      @for (t of tickets(); track t.id) {
+        <li>
+          <button type="button" class="card" (click)="open(t)">
+            <div class="card__top">
+              <strong dir="ltr">{{ t.ticketNumber }}</strong>
+              <em>{{ labels[t.status] }}</em>
+            </div>
+            <span>{{ t.customerName }} · {{ t.deviceModel }}</span>
+            <small>{{ t.updatedAt | date: 'short' }}</small>
+          </button>
+        </li>
+      }
+    </ul>
+  }
+</section>
+
+@if (selected(); as t) {
+  <div class="overlay" (click)="close()">
+    <div class="drawer" (click)="$event.stopPropagation()" role="dialog">
+      <header>
+        <div>
+          <h2 dir="ltr">{{ t.ticketNumber }}</h2>
+          <p>{{ t.customerName }} — {{ t.customerPhone }}</p>
+        </div>
+        <button type="button" class="ghost" (click)="close()">إغلاق</button>
+      </header>
+
+      <p><strong>{{ t.deviceModel }}</strong> — {{ t.issueDescription }}</p>
+      <p class="status">الحالة: {{ labels[t.status] }}</p>
+      <p>
+        الإجمالي:
+        {{ t.totalCost | currency: 'EGP':'symbol-narrow':'1.0-2' }}
+        @if (t.partsOrderNumber) {
+          · طلب {{ t.partsOrderNumber }}
+        }
+      </p>
+
+      @if (nextStatuses(t.status).length) {
+        <div class="actions">
+          <span>تحديث الحالة:</span>
+          @for (s of nextStatuses(t.status); track s) {
+            <button type="button" class="ghost" [disabled]="saving()" (click)="setStatus(s)">
+              {{ labels[s] }}
+            </button>
+          }
+        </div>
+      }
+
+      @if (!t.partsOrderNumber && t.status !== 'READY' && t.status !== 'DELIVERED') {
+        <div class="attach">
+          <h3>ربط قطعة من المخزون</h3>
+          <div class="search-row">
+            <input
+              [(ngModel)]="productQ"
+              name="pq"
+              placeholder="ابحث عن منتج…"
+              (keyup.enter)="searchParts()"
+            />
+            <button type="button" class="ghost" (click)="searchParts()">بحث</button>
+          </div>
+          <ul class="hits">
+            @for (p of productHits(); track p.id) {
+              <li>
+                <button
+                  type="button"
+                  [class.on]="selectedProductId === p.id"
+                  (click)="selectedProductId = p.id"
+                >
+                  {{ p.title }}
+                  <small>{{ p.listPrice | currency: 'EGP':'symbol-narrow':'1.0-0' }}</small>
+                </button>
+              </li>
+            }
+          </ul>
+          <label>
+            أجور العمالة
+            <input type="number" [(ngModel)]="attachLabor" name="al" min="0" />
+          </label>
+          <button
+            type="button"
+            class="primary"
+            [disabled]="!selectedProductId || saving()"
+            (click)="attachPart()"
+          >
+            طلب القطعة (إنشاء طلب جملة)
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+}

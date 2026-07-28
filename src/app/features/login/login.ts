@@ -41,8 +41,13 @@ export class Login {
     this.auth.login(phone, password).subscribe({
       next: (res) => {
         this.submitting.set(false);
+        const status = res.user.status;
         void this.router.navigateByUrl(
-          res.user.status === 'APPROVED' ? '/home' : '/pending',
+          status === 'APPROVED'
+            ? '/home'
+            : status === 'PENDING_VERIFICATION'
+              ? '/pending'
+              : '/inactive',
         );
       },
       error: (err: {

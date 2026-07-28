@@ -5,7 +5,7 @@ import {
   computed,
   inject,
 } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AuthService } from '../core/auth/auth.service';
 import { CartService } from '../core/cart/cart.service';
 import { ChatService } from '../core/chat/chat.service';
@@ -27,6 +27,7 @@ export class ShopShell {
   protected readonly theme = inject(ThemeService);
   protected readonly branding = inject(BrandingService);
   protected readonly push = inject(PushNotificationService);
+  private readonly router = inject(Router);
 
   protected readonly cartLabel = computed(() => {
     const n = this.cart.itemCount();
@@ -37,8 +38,25 @@ export class ShopShell {
     // Open the support socket once the app is running in the browser so the
     // unread badge stays live across the whole app (SSR-safe).
     afterNextRender(() => {
-      this.chat.connect();
-      this.push.listenForPush();
+      this.auth.refreshMe().subscribe({
+        next: (user) => {
+          const status = user.status;
+          if (status === 'REJECTED' || status === 'SUSPENDED') {
+            void this.router.navigateByUrl('/inactive');
+            return;
+          }
+          if (status === 'PENDING_VERIFICATION') {
+            void this.router.navigateByUrl('/pending');
+            return;
+          }
+          this.chat.connect();
+          this.push.listenForPush();
+        },
+        error: () => {
+          this.chat.connect();
+          this.push.listenForPush();
+        },
+      });
     });
   }
 }

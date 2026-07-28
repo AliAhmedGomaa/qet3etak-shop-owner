@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import {
   guestGuard,
+  inactiveScreenGuard,
   pendingScreenGuard,
   pendingVerificationGuard,
 } from './core/auth/auth.guards';
@@ -30,6 +31,14 @@ export const routes: Routes = [
     canActivate: [pendingScreenGuard],
     loadComponent: () =>
       import('./features/pending/pending-review').then((m) => m.PendingReview),
+  },
+  {
+    path: 'inactive',
+    canActivate: [inactiveScreenGuard],
+    loadComponent: () =>
+      import('./features/inactive/account-inactive').then(
+        (m) => m.AccountInactivePage,
+      ),
   },
   {
     path: '',
@@ -111,6 +120,11 @@ export const routes: Routes = [
           import('./features/special-requests/special-requests').then(
             (m) => m.SpecialRequestsPage,
           ),
+      },
+      {
+        path: 'repairs',
+        loadComponent: () =>
+          import('./features/repairs/repairs').then((m) => m.RepairsPage),
       },
       {
         path: 'support',
