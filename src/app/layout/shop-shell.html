@@ -1,4 +1,4 @@
-<div class="shell" dir="rtl">
+<div class="shell" dir="rtl" [class.shell--menu-open]="menuOpen()">
   <header class="shell__top">
     <a routerLink="/home" class="shell__brand">
       @if (branding.branding().logoUrl; as logo) {
@@ -13,25 +13,20 @@
     </a>
 
     <nav class="shell__nav" aria-label="التنقل الرئيسي">
-      <a routerLink="/home" routerLinkActive="is-active">الرئيسية</a>
-      <a routerLink="/catalog" routerLinkActive="is-active">الكتالوج</a>
-      <a routerLink="/orders" routerLinkActive="is-active">الطلبات</a>
-      <a routerLink="/reports" routerLinkActive="is-active">التقارير</a>
-      <a routerLink="/returns" routerLinkActive="is-active">المرتجعات</a>
-      <a routerLink="/invoices" routerLinkActive="is-active">الفواتير</a>
-      <a routerLink="/wallet" routerLinkActive="is-active">المحفظة</a>
-      <a routerLink="/special-requests" routerLinkActive="is-active">قطعة نادرة</a>
-      <a routerLink="/repairs" routerLinkActive="is-active">الإصلاحات</a>
-      <a routerLink="/customer-app" routerLinkActive="is-active">تطبيق العملاء</a>
-      <a routerLink="/shop-products" routerLinkActive="is-active">منتجات العملاء</a>
-      <a routerLink="/support" routerLinkActive="is-active" class="shell__chat-link">
-        الدعم
-        @if (chat.unread(); as u) {
-          @if (u > 0) {
-            <em class="badge">{{ u }}</em>
+      @for (item of navItems; track item.path) {
+        <a
+          [routerLink]="item.path"
+          routerLinkActive="is-active"
+          [class.shell__chat-link]="item.chat"
+        >
+          {{ item.label }}
+          @if (item.chat && chat.unread(); as u) {
+            @if (u > 0) {
+              <em class="badge">{{ u }}</em>
+            }
           }
-        }
-      </a>
+        </a>
+      }
     </nav>
 
     <div class="shell__actions">
@@ -56,7 +51,9 @@
             stroke-linejoin="round"
           />
         </svg>
-        <span>{{ push.enabled() ? 'الإشعارات مفعّلة' : 'تفعيل الإشعارات' }}</span>
+        <span class="shell__push-label">{{
+          push.enabled() ? 'الإشعارات مفعّلة' : 'تفعيل الإشعارات'
+        }}</span>
       </button>
       @if (push.lastError(); as pushErr) {
         <span class="shell__push-err" [title]="pushErr">!</span>
@@ -67,12 +64,69 @@
         (click)="theme.toggle()"
         [attr.aria-label]="theme.theme() === 'dark' ? 'تفعيل الوضع الفاتح' : 'تفعيل الوضع الداكن'"
       >
-        {{ theme.theme() === 'dark' ? '☀ فاتح' : '☾ داكن' }}
+        <span class="shell__theme-icon" aria-hidden="true">{{
+          theme.theme() === 'dark' ? '☀' : '☾'
+        }}</span>
+        <span class="shell__theme-label">{{
+          theme.theme() === 'dark' ? 'فاتح' : 'داكن'
+        }}</span>
       </button>
       <a routerLink="/checkout" class="shell__cart">{{ cartLabel() }}</a>
       <button type="button" class="shell__logout" (click)="auth.logout()">خروج</button>
     </div>
   </header>
+
+  @if (menuOpen()) {
+    <button
+      type="button"
+      class="shell__scrim"
+      aria-label="إغلاق القائمة"
+      (click)="closeMenu()"
+    ></button>
+    <aside class="shell__drawer" role="dialog" aria-modal="true" aria-label="المزيد">
+      <div class="shell__drawer-head">
+        <div>
+          <strong>{{ branding.branding().appName }}</strong>
+          <small>{{ auth.user()?.shopName }}</small>
+        </div>
+        <button type="button" class="shell__drawer-close" (click)="closeMenu()" aria-label="إغلاق">
+          ✕
+        </button>
+      </div>
+
+      <nav class="shell__drawer-nav" aria-label="صفحات إضافية">
+        @for (item of moreItems; track item.path) {
+          <a
+            [routerLink]="item.path"
+            routerLinkActive="is-active"
+            (click)="closeMenu()"
+          >
+            <span>{{ item.label }}</span>
+            @if (item.chat && chat.unread(); as u) {
+              @if (u > 0) {
+                <em class="badge">{{ u }}</em>
+              }
+            }
+          </a>
+        }
+      </nav>
+
+      <div class="shell__drawer-actions">
+        <button
+          type="button"
+          class="shell__drawer-push"
+          [class.on]="push.enabled()"
+          [disabled]="push.busy() || !push.supported()"
+          (click)="push.toggle()"
+        >
+          {{ push.enabled() ? 'إيقاف الإشعارات' : 'تفعيل الإشعارات' }}
+        </button>
+        <button type="button" class="shell__drawer-logout" (click)="auth.logout()">
+          خروج
+        </button>
+      </div>
+    </aside>
+  }
 
   <div class="shell__fabs">
     <button
@@ -127,18 +181,16 @@
       <span class="ico" aria-hidden="true">≡</span>
       الطلبات
     </a>
-    <a routerLink="/wallet" routerLinkActive="is-active">
-      <span class="ico" aria-hidden="true">◈</span>
-      المحفظة
-    </a>
-    <a routerLink="/support" routerLinkActive="is-active" class="shell__tabs-chat">
-      <span class="ico" aria-hidden="true">💬</span>
-      الدعم
-      @if (chat.unread(); as u) {
-        @if (u > 0) {
-          <em>{{ u }}</em>
-        }
-      }
-    </a>
+    <button
+      type="button"
+      class="shell__tabs-more"
+      [class.is-active]="menuOpen() || moreActive()"
+      (click)="toggleMenu()"
+      aria-haspopup="dialog"
+      [attr.aria-expanded]="menuOpen()"
+    >
+      <span class="ico" aria-hidden="true">⋯</span>
+      المزيد
+    </button>
   </nav>
 </div>

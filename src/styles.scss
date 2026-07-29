@@ -172,18 +172,23 @@ html[data-theme='dark'] {
   }
 
   .shell__top,
-  .shell__tabs {
+  .shell__tabs,
+  .shell__drawer {
     background: color-mix(in srgb, var(--surface) 94%, transparent) !important;
     border-color: var(--border) !important;
   }
 
   .shell__nav a,
-  .shell__tabs a {
+  .shell__tabs a,
+  .shell__tabs-more,
+  .shell__drawer-nav a {
     color: var(--ink-muted) !important;
   }
 
   .shell__nav a.is-active,
-  .shell__tabs a.is-active {
+  .shell__tabs a.is-active,
+  .shell__tabs-more.is-active,
+  .shell__drawer-nav a.is-active {
     background: var(--accent-soft) !important;
     color: var(--ink) !important;
   }
@@ -229,7 +234,10 @@ html[data-theme='dark'] {
 
   .pager button,
   .shell__logout,
-  .shell__theme {
+  .shell__theme,
+  .shell__drawer-close,
+  .shell__drawer-push,
+  .shell__drawer-logout {
     background: var(--surface) !important;
     border-color: var(--border) !important;
     color: var(--ink) !important;
