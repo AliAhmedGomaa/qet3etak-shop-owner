@@ -1,0 +1,102 @@
+<section class="sp" dir="rtl">
+  <header class="sp__head">
+    <div>
+      <h1>منتجات العملاء</h1>
+      <p>
+        أضف منتجات تظهر لعملائك في تطبيق العملاء عند فتح رابط محلك.
+      </p>
+    </div>
+    <button type="button" class="btn ghost" (click)="startCreate()">منتج جديد</button>
+  </header>
+
+  @if (error()) {
+    <p class="err">{{ error() }}</p>
+  }
+  @if (success()) {
+    <p class="ok">{{ success() }}</p>
+  }
+
+  <div class="sp__grid">
+    <form class="card" [formGroup]="form" (ngSubmit)="save()">
+      <h2>{{ editingId() ? 'تعديل منتج' : 'إضافة منتج' }}</h2>
+
+      <label>
+        <span>اسم المنتج</span>
+        <input formControlName="title" type="text" />
+      </label>
+
+      <label>
+        <span>الوصف</span>
+        <textarea formControlName="description" rows="3"></textarea>
+      </label>
+
+      <div class="row">
+        <label>
+          <span>السعر (ج.م)</span>
+          <input formControlName="price" type="number" min="0" step="1" />
+        </label>
+        <label>
+          <span>الترتيب</span>
+          <input formControlName="sortOrder" type="number" step="1" />
+        </label>
+      </div>
+
+      <label class="toggle">
+        <input formControlName="isActive" type="checkbox" />
+        <span>ظاهر للعملاء</span>
+      </label>
+
+      <div class="image">
+        @if (imagePreview(); as preview) {
+          <img [src]="preview" alt="" />
+        } @else {
+          <div class="image__empty">بدون صورة</div>
+        }
+        <label class="upload">
+          <input
+            type="file"
+            accept="image/png,image/jpeg,image/webp"
+            (change)="onImageSelected($event)"
+          />
+          <span>رفع صورة</span>
+        </label>
+      </div>
+
+      <button type="submit" class="btn primary" [disabled]="saving() || form.invalid">
+        {{ saving() ? 'جارٍ الحفظ…' : editingId() ? 'حفظ التعديل' : 'إضافة' }}
+      </button>
+    </form>
+
+    <div class="card list">
+      <h2>المنتجات ({{ items().length }})</h2>
+      @if (loading()) {
+        <p class="muted">جارٍ التحميل…</p>
+      } @else if (!items().length) {
+        <p class="muted">لا توجد منتجات بعد — أضف أول منتج من النموذج.</p>
+      } @else {
+        <ul>
+          @for (item of items(); track item.id) {
+            <li [class.off]="!item.isActive">
+              <div class="thumb">
+                @if (item.imageUrl) {
+                  <img [src]="item.imageUrl" alt="" />
+                }
+              </div>
+              <div class="meta">
+                <strong>{{ item.title }}</strong>
+                <span>{{ item.price | currency: 'EGP':'symbol-narrow':'1.0-0' }}</span>
+                @if (!item.isActive) {
+                  <em>مخفي</em>
+                }
+              </div>
+              <div class="actions">
+                <button type="button" class="btn ghost" (click)="startEdit(item)">تعديل</button>
+                <button type="button" class="btn danger" (click)="remove(item)">حذف</button>
+              </div>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+  </div>
+</section>

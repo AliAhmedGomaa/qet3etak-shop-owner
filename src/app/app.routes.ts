@@ -134,6 +134,13 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'shop-products',
+        loadComponent: () =>
+          import('./features/shop-products/shop-products').then(
+            (m) => m.ShopProductsPage,
+          ),
+      },
+      {
         path: 'support',
         loadComponent: () =>
           import('./features/support/support-chat').then((m) => m.SupportChat),
