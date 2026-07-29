@@ -111,9 +111,23 @@ export class ShopProductsPage implements OnInit {
     this.imagePreview.set(null);
   }
 
+  protected hasImage(): boolean {
+    return Boolean(this.imageFile() || this.imagePreview());
+  }
+
   protected save(): void {
     this.form.markAllAsTouched();
     if (this.form.invalid) return;
+    const id = this.editingId();
+    const file = this.imageFile();
+    if (!id && !file) {
+      this.error.set('صورة المنتج مطلوبة');
+      return;
+    }
+    if (id && !this.hasImage()) {
+      this.error.set('صورة المنتج مطلوبة');
+      return;
+    }
     this.saving.set(true);
     this.error.set(null);
     this.success.set(null);
@@ -125,10 +139,8 @@ export class ShopProductsPage implements OnInit {
     fd.append('price', String(raw.price));
     fd.append('sortOrder', String(raw.sortOrder ?? 0));
     fd.append('isActive', String(raw.isActive));
-    const file = this.imageFile();
     if (file) fd.append('image', file);
 
-    const id = this.editingId();
     const req = id ? this.api.update(id, fd) : this.api.create(fd);
     req.subscribe({
       next: () => {

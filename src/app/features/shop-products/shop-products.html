@@ -47,22 +47,28 @@
       </label>
 
       <div class="image">
+        <span class="image__label">صورة المنتج <em>*</em></span>
         @if (imagePreview(); as preview) {
           <img [src]="preview" alt="" />
         } @else {
-          <div class="image__empty">بدون صورة</div>
+          <div class="image__empty">الصورة مطلوبة</div>
         }
         <label class="upload">
           <input
             type="file"
             accept="image/png,image/jpeg,image/webp"
             (change)="onImageSelected($event)"
+            [attr.required]="!editingId() ? '' : null"
           />
-          <span>رفع صورة</span>
+          <span>{{ imagePreview() ? 'تغيير الصورة' : 'رفع صورة' }}</span>
         </label>
       </div>
 
-      <button type="submit" class="btn primary" [disabled]="saving() || form.invalid">
+      <button
+        type="submit"
+        class="btn primary"
+        [disabled]="saving() || form.invalid || !hasImage()"
+      >
         {{ saving() ? 'جارٍ الحفظ…' : editingId() ? 'حفظ التعديل' : 'إضافة' }}
       </button>
     </form>

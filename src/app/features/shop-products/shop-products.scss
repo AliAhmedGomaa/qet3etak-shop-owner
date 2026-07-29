@@ -87,6 +87,16 @@ textarea {
   gap: 0.55rem;
 }
 
+.image__label {
+  font-size: 0.85rem;
+  color: #334155;
+
+  em {
+    color: #dc2626;
+    font-style: normal;
+  }
+}
+
 .image img,
 .image__empty {
   width: 7rem;
