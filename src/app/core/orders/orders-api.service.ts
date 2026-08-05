@@ -5,7 +5,7 @@ import { environment } from '../../../environments/environment';
 import { PageParams, Paginated } from '../pagination';
 
 export type PaymentMethod = 'CREDIT' | 'CASH_ON_DELIVERY';
-export type OrderStatus = 'RECEIVED' | 'PREPARING' | 'SHIPPED' | 'DELIVERED';
+export type OrderStatus = 'RECEIVED' | 'SHIPPED' | 'DELIVERED';
 
 export interface WalletTx {
   id?: string;

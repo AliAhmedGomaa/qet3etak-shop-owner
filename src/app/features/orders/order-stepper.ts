@@ -5,11 +5,10 @@ import {
 } from '@angular/core';
 import { OrderStatus } from '../../core/orders/orders-api.service';
 
-const STEPS: OrderStatus[] = ['RECEIVED', 'PREPARING', 'SHIPPED', 'DELIVERED'];
+const STEPS: OrderStatus[] = ['RECEIVED', 'SHIPPED', 'DELIVERED'];
 
 const LABELS: Record<OrderStatus, string> = {
   RECEIVED: 'مستلم',
-  PREPARING: 'تجهيز',
   SHIPPED: 'شحن',
   DELIVERED: 'تسليم',
 };
@@ -32,7 +31,7 @@ const LABELS: Record<OrderStatus, string> = {
       margin: 0;
       padding: 0.5rem 0 0.25rem;
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 0.25rem;
       position: relative;
     }

@@ -194,7 +194,6 @@ export class OrderDetail implements OnInit {
   protected statusLabel(status: string): string {
     const map: Record<string, string> = {
       RECEIVED: 'مستلم',
-      PREPARING: 'قيد التجهيز',
       SHIPPED: 'تم الشحن',
       DELIVERED: 'تم التسليم',
     };

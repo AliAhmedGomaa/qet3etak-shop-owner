@@ -15,7 +15,6 @@ type RangePreset = 'month' | 'year' | 'all';
 
 const STATUS_AR: Record<string, string> = {
   RECEIVED: 'مستلم',
-  PREPARING: 'قيد التجهيز',
   SHIPPED: 'تم الشحن',
   DELIVERED: 'تم التسليم',
 };
