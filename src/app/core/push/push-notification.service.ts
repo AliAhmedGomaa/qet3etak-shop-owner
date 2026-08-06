@@ -169,6 +169,13 @@ export class PushNotificationService {
     else await this.enable();
   }
 
+  /** Enable push quietly on app start (no toggle UI). */
+  async ensureEnabled(): Promise<void> {
+    this.listenForPush();
+    if (this.enabled() || !this.isPushSupported() || this.busy()) return;
+    await this.enable();
+  }
+
   /** Call once from the shell so incoming pushes are visible in DevTools. */
   listenForPush(): void {
     this.supported.set(this.isPushSupported());

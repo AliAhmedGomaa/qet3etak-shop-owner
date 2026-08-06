@@ -105,11 +105,11 @@ export class ShopShell {
             return;
           }
           this.chat.connect();
-          this.push.listenForPush();
+          void this.push.ensureEnabled();
         },
         error: () => {
           this.chat.connect();
-          this.push.listenForPush();
+          void this.push.ensureEnabled();
         },
       });
     });

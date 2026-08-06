@@ -255,7 +255,7 @@
   border-top: 1px solid var(--border);
 }
 
-.shell__drawer-push,
+.shell__drawer-theme,
 .shell__drawer-logout {
   min-height: 2.6rem;
   border-radius: 0.7rem;
@@ -265,16 +265,6 @@
   font: inherit;
   font-weight: 700;
   cursor: pointer;
-}
-
-.shell__drawer-push.on {
-  background: var(--accent-soft);
-  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
-}
-
-.shell__drawer-push:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
 }
 
 /* Room for fixed tab bar on mobile pages (include home-indicator inset). */
