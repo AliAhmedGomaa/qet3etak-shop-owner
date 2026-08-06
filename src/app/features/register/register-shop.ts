@@ -14,10 +14,14 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/auth/auth.service';
 import { compressImageForUpload } from '../../core/media/compress-image';
 import { FileUpload } from '../../shared/file-upload/file-upload';
+import {
+  LocationMapPicker,
+  ShopLocation,
+} from '../../shared/location-map-picker/location-map-picker';
 
 @Component({
   selector: 'app-register-shop',
-  imports: [ReactiveFormsModule, RouterLink, FileUpload],
+  imports: [ReactiveFormsModule, RouterLink, FileUpload, LocationMapPicker],
   templateUrl: './register-shop.html',
   styleUrl: './register-shop.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,6 +35,7 @@ export class RegisterShop {
   protected readonly error = signal<string | null>(null);
   protected readonly photoFile = signal<File | null>(null);
   protected readonly attempted = signal(false);
+  protected readonly location = signal<ShopLocation | null>(null);
 
   protected readonly form = this.fb.nonNullable.group({
     fullName: ['', [Validators.required, Validators.minLength(2)]],
@@ -63,6 +68,11 @@ export class RegisterShop {
     this.error.set(null);
   }
 
+  protected onLocationChange(loc: ShopLocation | null): void {
+    this.location.set(loc);
+    this.error.set(null);
+  }
+
   protected submit(): void {
     this.attempted.set(true);
     this.normalizePhone();
@@ -77,6 +87,10 @@ export class RegisterShop {
       this.error.set('اللوجو مطلوب');
       return;
     }
+    if (!this.location()) {
+      this.error.set('حدد موقع المحل على الخريطة');
+      return;
+    }
 
     this.submitting.set(true);
     this.error.set(null);
@@ -88,10 +102,13 @@ export class RegisterShop {
     try {
       const photo = await compressImageForUpload(this.photoFile()!);
       const value = this.form.getRawValue();
+      const loc = this.location()!;
       const data = new FormData();
       Object.entries(value).forEach(([key, val]) =>
         data.append(key, String(val).trim()),
       );
+      data.append('locationLat', String(loc.lat));
+      data.append('locationLng', String(loc.lng));
       data.append('commercialRegPhoto', photo);
 
       this.auth.registerShop(data).subscribe({

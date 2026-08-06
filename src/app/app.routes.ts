@@ -145,6 +145,11 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/support/support-chat').then((m) => m.SupportChat),
       },
+      {
+        path: 'profile',
+        loadComponent: () =>
+          import('./features/profile/shop-profile').then((m) => m.ShopProfilePage),
+      },
     ],
   },
   { path: '**', redirectTo: '' },

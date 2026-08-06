@@ -50,7 +50,8 @@
               "socket.io-client",
               "debug",
               "engine.io-client",
-              "xmlhttprequest-ssl"
+              "xmlhttprequest-ssl",
+              "leaflet"
             ],
             "assets": [
               {
@@ -58,7 +59,10 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss"],
+            "styles": [
+              "src/styles.scss",
+              "node_modules/leaflet/dist/leaflet.css"
+            ],
             "server": "src/main.server.ts",
             "outputMode": "server",
             "security": {

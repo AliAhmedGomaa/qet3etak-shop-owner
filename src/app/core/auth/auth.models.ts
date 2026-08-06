@@ -12,6 +12,9 @@ export interface ShopUser {
   phone: string;
   city: string;
   address: string;
+  /** Shop pin on map (WGS84). */
+  locationLat?: number;
+  locationLng?: number;
   commercialRegPhotoUrl: string;
   status: UserStatus;
   role: UserRole;

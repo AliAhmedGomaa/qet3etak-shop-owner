@@ -45,6 +45,22 @@ export class AuthService {
     );
   }
 
+  updateShopProfile(data: {
+    city?: string;
+    address?: string;
+    locationLat?: number;
+    locationLng?: number;
+  }): Observable<ShopUser> {
+    return this.http
+      .patch<ShopUser>(`${environment.apiUrl}/auth/me/shop-profile`, data)
+      .pipe(
+        tap((user) => {
+          this.userSignal.set(user);
+          localStorage.setItem(USER_KEY, JSON.stringify(user));
+        }),
+      );
+  }
+
   logout(): void {
     this.tokenSignal.set(null);
     this.userSignal.set(null);

@@ -47,6 +47,18 @@
       }
     </label>
 
+    <div class="upload" [class.field--invalid]="attempted() && !location()">
+      <p class="upload__label">موقع المحل على الخريطة</p>
+      <app-location-map-picker
+        [lat]="location()?.lat ?? null"
+        [lng]="location()?.lng ?? null"
+        (locationChange)="onLocationChange($event)"
+      />
+      @if (attempted() && !location()) {
+        <em class="field__error">حدد موقع المحل على الخريطة</em>
+      }
+    </div>
+
     <label class="field" [class.field--invalid]="fieldError('password')">
       <span>كلمة المرور</span>
       <input formControlName="password" type="password" autocomplete="new-password" placeholder="٦ أحرف على الأقل" />
