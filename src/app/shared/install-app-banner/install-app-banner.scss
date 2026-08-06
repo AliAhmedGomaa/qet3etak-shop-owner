@@ -6,9 +6,12 @@
 .install-banner {
   pointer-events: auto;
   position: fixed;
-  z-index: 60;
-  /* Clear home indicator + landscape notches */
-  bottom: calc(1rem + var(--sab, env(safe-area-inset-bottom, 0px)));
+  /* Keep below shell tabs so nav stays tappable */
+  z-index: 35;
+  /* Sit above the bottom tab bar (defaults when banner is outside .shell) */
+  bottom: calc(
+    1rem + var(--shell-tabs-h, 4.25rem) + var(--sab, env(safe-area-inset-bottom, 0px))
+  );
   left: calc(1rem + var(--sal, env(safe-area-inset-left, 0px)));
   right: calc(1rem + var(--sar, env(safe-area-inset-right, 0px)));
   display: grid;

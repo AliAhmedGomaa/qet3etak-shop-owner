@@ -75,7 +75,7 @@
   position: fixed;
   inset-inline: 0;
   bottom: 0;
-  z-index: 40;
+  z-index: 100;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 0.15rem;
@@ -149,7 +149,8 @@
 
 .shell__scrim {
   position: fixed;
-  inset: 0;
+  /* Leave bottom tabs clickable while the More drawer is open */
+  inset: 0 0 calc(var(--shell-tabs-h) + var(--sab)) 0;
   z-index: 60;
   border: 0;
   background: color-mix(in srgb, #0f172a 45%, transparent);
