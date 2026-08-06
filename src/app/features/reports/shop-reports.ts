@@ -17,6 +17,7 @@ const STATUS_AR: Record<string, string> = {
   RECEIVED: 'مستلم',
   SHIPPED: 'تم الشحن',
   DELIVERED: 'تم التسليم',
+  RETURNED: 'مرتجع',
 };
 
 const PAYMENT_AR: Record<string, string> = {

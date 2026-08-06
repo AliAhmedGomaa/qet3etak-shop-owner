@@ -7,10 +7,11 @@ import { OrderStatus } from '../../core/orders/orders-api.service';
 
 const STEPS: OrderStatus[] = ['RECEIVED', 'SHIPPED', 'DELIVERED'];
 
-const LABELS: Record<OrderStatus, string> = {
+const LABELS: Record<string, string> = {
   RECEIVED: 'مستلم',
   SHIPPED: 'شحن',
   DELIVERED: 'تسليم',
+  RETURNED: 'مرتجع',
 };
 
 @Component({
@@ -84,6 +85,7 @@ export class OrderStepper {
   protected readonly labels = LABELS;
 
   protected activeIndex(): number {
+    if (this.status() === 'RETURNED') return STEPS.length - 1;
     const idx = STEPS.indexOf(this.status());
     return idx < 0 ? 0 : idx;
   }
