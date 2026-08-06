@@ -23,6 +23,16 @@ export class AuthService {
     () => this.userSignal()?.status === 'PENDING_VERIFICATION',
   );
   readonly isApproved = computed(() => this.userSignal()?.status === 'APPROVED');
+  /** True when the shop has a saved map pin for delivery navigation. */
+  readonly hasShopLocation = computed(() => {
+    const u = this.userSignal();
+    return (
+      u?.locationLat != null &&
+      u?.locationLng != null &&
+      Number.isFinite(u.locationLat) &&
+      Number.isFinite(u.locationLng)
+    );
+  });
 
   registerShop(formData: FormData): Observable<AuthResponse> {
     return this.http

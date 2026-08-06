@@ -11,6 +11,13 @@
     <p class="home__error" role="alert">{{ error() }}</p>
   }
 
+  @if (auth.isApproved() && !auth.hasShopLocation()) {
+    <a routerLink="/profile" class="home__loc-nudge">
+      <strong>حدّد موقع محلك على الخريطة</strong>
+      <span>عشان المندوب يقدر يوصّل بسهولة — اضغط هنا</span>
+    </a>
+  }
+
   <section class="hero" aria-roledescription="carousel" aria-label="عروض رئيسية">
     <div class="hero__viewport">
       @for (slide of slides; track slide.id; let i = $index) {

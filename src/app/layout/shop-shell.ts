@@ -54,7 +54,7 @@ export class ShopShell {
     { path: '/repairs', label: 'الإصلاحات' },
     { path: '/customer-app', label: 'تطبيق العملاء' },
     { path: '/shop-products', label: 'منتجات العملاء' },
-    { path: '/profile', label: 'بيانات المتجر' },
+    { path: '/profile', label: 'موقع المتجر' },
     { path: '/support', label: 'الدعم', chat: true },
   ];
 
@@ -68,7 +68,7 @@ export class ShopShell {
     { path: '/repairs', label: 'الإصلاحات' },
     { path: '/customer-app', label: 'تطبيق العملاء' },
     { path: '/shop-products', label: 'منتجات العملاء' },
-    { path: '/profile', label: 'بيانات المتجر' },
+    { path: '/profile', label: 'موقع المتجر' },
     { path: '/support', label: 'الدعم', chat: true },
   ];
 
