@@ -74,7 +74,7 @@ export class RegisterShop {
       return;
     }
     if (!this.photoFile()) {
-      this.error.set('صورة البطاقة التجارية / المحل مطلوبة');
+      this.error.set('اللوجو مطلوب');
       return;
     }
 
