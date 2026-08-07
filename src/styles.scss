@@ -317,4 +317,44 @@ html[data-theme='dark'] {
   .card .total {
     color: var(--accent) !important;
   }
+
+  .checkout .lines li,
+  .checkout .pay-opt {
+    background: var(--surface) !important;
+    border-color: var(--border) !important;
+    color: var(--ink) !important;
+  }
+
+  .checkout .lines li strong,
+  .checkout .pay-opt strong,
+  .checkout .qty em,
+  .checkout header h1,
+  .checkout .pay h2 {
+    color: var(--ink) !important;
+  }
+
+  .checkout .info span,
+  .checkout .pay-opt span,
+  .checkout header p {
+    color: var(--ink-muted) !important;
+  }
+
+  .checkout .lt {
+    color: var(--accent) !important;
+  }
+
+  .checkout .qty button {
+    background: var(--brand) !important;
+    color: var(--surface) !important;
+  }
+
+  .checkout .pay-opt.on {
+    border-color: var(--accent) !important;
+    background: color-mix(in srgb, var(--accent-soft) 70%, var(--surface)) !important;
+  }
+
+  .checkout .pay-opt:disabled,
+  .checkout .pay-opt.disabled {
+    background: var(--surface-muted) !important;
+  }
 }

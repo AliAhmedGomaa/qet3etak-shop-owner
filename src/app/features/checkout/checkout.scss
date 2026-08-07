@@ -2,7 +2,8 @@
   --page-pad-bottom: 2.5rem;
   max-width: 28rem;
   margin: 0 auto;
-  background: #f8fafc;
+  background: var(--surface-muted);
+  color: var(--ink);
 }
 
 header {
@@ -14,16 +15,17 @@ header {
 header h1 {
   margin: 0;
   font-size: 1.3rem;
+  color: var(--ink);
 }
 
 header p {
   margin: 0.25rem 0 0;
-  color: #64748b;
+  color: var(--ink-muted);
   font-size: 0.85rem;
 }
 
 header a {
-  color: #0d9a6a;
+  color: var(--accent-strong);
   font-weight: 700;
   text-decoration: none;
 }
@@ -40,11 +42,12 @@ header a {
   display: grid;
   grid-template-columns: auto 1fr auto;
   gap: 0.75rem;
-  background: #fff;
-  border: 1px solid #e2e8f0;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 0.9rem;
   padding: 0.75rem;
   align-items: center;
+  color: var(--ink);
 }
 
 .lines img {
@@ -52,15 +55,17 @@ header a {
   height: 52px;
   object-fit: cover;
   border-radius: 0.55rem;
+  background: var(--surface-muted);
 }
 
 .info strong {
   display: block;
   font-size: 0.9rem;
+  color: var(--ink);
 }
 
 .info span {
-  color: #64748b;
+  color: var(--ink-muted);
   font-size: 0.75rem;
 }
 
@@ -76,9 +81,10 @@ header a {
   height: 2.25rem;
   border: 0;
   border-radius: 0.5rem;
-  background: #0f172a;
-  color: #fff;
+  background: var(--brand);
+  color: var(--surface);
   font-size: 1rem;
+  cursor: pointer;
 }
 
 .qty em {
@@ -86,23 +92,26 @@ header a {
   min-width: 1.5rem;
   text-align: center;
   font-weight: 800;
+  color: var(--ink);
 }
 
 .lt {
-  color: #10b880;
+  color: var(--accent);
   font-size: 0.9rem;
 }
 
 .pay h2 {
   margin: 0 0 0.6rem;
   font-size: 0.95rem;
+  color: var(--ink);
 }
 
 .pay-opt {
   width: 100%;
   text-align: start;
-  border: 1.5px solid #e2e8f0;
-  background: #fff;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  color: var(--ink);
   border-radius: 0.9rem;
   padding: 0.9rem 1rem;
   margin-bottom: 0.55rem;
@@ -113,23 +122,25 @@ header a {
 .pay-opt strong {
   display: block;
   margin-bottom: 0.2rem;
+  color: var(--ink);
 }
 
 .pay-opt span {
-  color: #64748b;
+  color: var(--ink-muted);
   font-size: 0.78rem;
 }
 
 .pay-opt.on {
-  border-color: #10b880;
-  box-shadow: 0 0 0 3px rgba(16, 184, 128, 0.2);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+  background: color-mix(in srgb, var(--accent-soft) 70%, var(--surface));
 }
 
 .pay-opt.disabled,
 .pay-opt:disabled {
   opacity: 0.55;
   cursor: not-allowed;
-  background: #f1f5f9;
+  background: var(--surface-muted);
 }
 
 .notes {
@@ -138,14 +149,21 @@ header a {
   font-size: 0.8rem;
   font-weight: 600;
   margin: 0.75rem 0;
+  color: var(--ink);
 }
 
 .notes textarea {
-  border: 1.5px solid #e2e8f0;
+  border: 1.5px solid var(--border);
   border-radius: 0.75rem;
   padding: 0.7rem;
   font: inherit;
   font-weight: 500;
+  background: var(--input-bg);
+  color: var(--ink);
+}
+
+.notes textarea::placeholder {
+  color: var(--ink-soft);
 }
 
 .submit {
@@ -153,7 +171,7 @@ header a {
   min-height: 3rem;
   border: 0;
   border-radius: 0.85rem;
-  background: #10b880;
+  background: var(--accent);
   color: #fff;
   font: inherit;
   font-weight: 800;
@@ -165,8 +183,8 @@ header a {
 }
 
 .err {
-  background: #fef2f2;
-  color: #991b1b;
+  background: var(--danger-bg);
+  color: var(--danger);
   padding: 0.75rem;
   border-radius: 0.75rem;
   font-size: 0.85rem;
@@ -174,8 +192,13 @@ header a {
 
 .empty {
   text-align: center;
-  color: #64748b;
+  color: var(--ink-muted);
   padding: 2rem 1rem;
+}
+
+.empty a {
+  color: var(--accent-strong);
+  font-weight: 700;
 }
 
 @media (min-width: 900px) {
