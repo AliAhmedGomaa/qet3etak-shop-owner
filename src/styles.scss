@@ -361,4 +361,113 @@ html[data-theme='dark'] {
   .checkout .pay-opt.disabled {
     background: var(--surface-muted) !important;
   }
+
+  /* Chat */
+  .chat,
+  .support .chat {
+    background: var(--surface) !important;
+    border-color: var(--border) !important;
+    color: var(--ink) !important;
+  }
+
+  .chat__head,
+  .chat__compose {
+    background: var(--surface) !important;
+    border-color: var(--border) !important;
+  }
+
+  .chat__body {
+    background: var(--surface-muted) !important;
+  }
+
+  .bubble--them {
+    background: var(--surface) !important;
+    border-color: var(--border) !important;
+  }
+
+  .bubble--them .bubble__text {
+    color: var(--ink) !important;
+  }
+
+  .bubble--them .bubble__time {
+    color: var(--ink-muted) !important;
+  }
+
+  .bubble--mine {
+    background: var(--accent) !important;
+  }
+
+  .bubble--mine .bubble__text,
+  .bubble--mine .bubble__time {
+    color: #fff !important;
+  }
+
+  .chat__compose textarea {
+    background: var(--input-bg) !important;
+    border-color: var(--border) !important;
+    color: var(--ink) !important;
+  }
+
+  .chat__compose textarea::placeholder {
+    color: var(--ink-soft) !important;
+  }
+
+  .chat__compose button {
+    background: var(--accent) !important;
+    color: #fff !important;
+  }
+
+  /* Shared cards / lists across remaining pages */
+  .orders .card,
+  .invoices .card,
+  .wallet article,
+  .wallet .card,
+  .returns article,
+  .rare article,
+  .sp .card,
+  .cap .card,
+  .sr .card,
+  .fu {
+    background: var(--surface) !important;
+    border-color: var(--border) !important;
+    color: var(--ink) !important;
+  }
+
+  .orders .card strong,
+  .invoices .card strong,
+  .wallet strong,
+  .home h1,
+  .home h2,
+  .orders h1,
+  .invoices h1,
+  .wallet h1,
+  .returns h1,
+  .rare h1,
+  .sp h1,
+  .cap h1,
+  .sr h1 {
+    color: var(--ink) !important;
+  }
+
+  .orders .card small,
+  .invoices .card small,
+  .wallet small,
+  .home .muted,
+  .block__head a {
+    color: var(--ink-muted) !important;
+  }
+
+  .home .carousel .brand,
+  .home .cat,
+  .home .product {
+    background: var(--surface) !important;
+    border-color: var(--border) !important;
+    color: var(--ink) !important;
+  }
+
+  .home .cat--accent {
+    background: var(--accent-soft) !important;
+    border-color: color-mix(in srgb, var(--accent) 40%, var(--border)) !important;
+    color: var(--chip-ok-ink) !important;
+  }
 }

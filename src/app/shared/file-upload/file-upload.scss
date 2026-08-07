@@ -4,25 +4,25 @@
   width: 100%;
   border: 1.5px dashed #cbd5e1;
   border-radius: 0.85rem;
-  background: #f8fafc;
+  background: var(--surface-muted);
   cursor: pointer;
   transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
   overflow: hidden;
 }
 
 .fu:hover {
-  border-color: #10b880;
+  border-color: var(--accent);
   background: #f0fdf8;
 }
 
 .fu:focus-visible {
   outline: none;
-  border-color: #10b880;
+  border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(16, 184, 128, 0.15);
 }
 
 .fu--drag {
-  border-color: #10b880;
+  border-color: var(--accent);
   border-style: solid;
   background: #ecfdf5;
   box-shadow: 0 0 0 3px rgba(16, 184, 128, 0.15);
@@ -30,12 +30,12 @@
 
 .fu--filled {
   border-style: solid;
-  background: #fff;
+  background: var(--surface);
 }
 
 .fu--invalid {
   border-color: #ef4444;
-  background: #fef2f2;
+  background: var(--danger-bg);
 }
 
 .fu--disabled {
@@ -69,7 +69,7 @@
   height: 2.75rem;
   border-radius: 50%;
   background: #e2f7ee;
-  color: #10b880;
+  color: var(--accent);
   margin-bottom: 0.15rem;
 }
 
@@ -82,13 +82,13 @@
   margin: 0;
   font-size: 0.86rem;
   font-weight: 600;
-  color: #334155;
+  color: var(--ink);
 }
 
 .fu__hint {
   margin: 0;
   font-size: 0.72rem;
-  color: #94a3b8;
+  color: var(--ink-soft);
 }
 
 /* Filled / preview state */
@@ -104,8 +104,8 @@
   height: 3.25rem;
   border-radius: 0.6rem;
   object-fit: cover;
-  background: #f1f5f9;
-  border: 1px solid #e2e8f0;
+  background: var(--surface-muted);
+  border: 1px solid var(--border);
   flex-shrink: 0;
 }
 
@@ -120,7 +120,7 @@
 .fu__name {
   font-size: 0.83rem;
   font-weight: 600;
-  color: #0f172a;
+  color: var(--ink);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -128,7 +128,7 @@
 
 .fu__change {
   font-size: 0.72rem;
-  color: #10b880;
+  color: var(--accent);
   font-weight: 600;
 }
 
@@ -138,8 +138,8 @@
   height: 2rem;
   border: 0;
   border-radius: 0.5rem;
-  background: #f1f5f9;
-  color: #64748b;
+  background: var(--surface-muted);
+  color: var(--ink-muted);
   cursor: pointer;
   display: grid;
   place-items: center;

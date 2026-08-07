@@ -18,7 +18,7 @@
 }
 
 .toolbar a {
-  color: #0d9a6a;
+  color: var(--accent-strong);
   font-weight: 700;
   text-decoration: none;
 }
@@ -28,7 +28,7 @@
   padding: 0 1rem;
   border: 0;
   border-radius: 0.75rem;
-  background: #10b880;
+  background: var(--accent);
   color: #fff;
   font: inherit;
   font-weight: 700;
@@ -37,13 +37,13 @@
 
 .muted {
   text-align: center;
-  color: #94a3b8;
+  color: var(--ink-soft);
   padding: 2rem 1rem;
 }
 
 .sheet {
-  background: #fff;
-  border: 1px solid #e2e8f0;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 1rem;
   padding: 1.25rem 1.1rem 1.5rem;
   box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
@@ -64,13 +64,13 @@
 .seller h1 {
   margin: 0 0 0.35rem;
   font-size: 1.35rem;
-  color: #0f172a;
+  color: var(--ink);
 }
 
 .seller p,
 .parties p {
   margin: 0.15rem 0;
-  color: #475569;
+  color: var(--ink-muted);
   font-size: 0.85rem;
 }
 
@@ -78,7 +78,7 @@
   display: block;
   font-size: 1.05rem;
   margin-bottom: 0.65rem;
-  color: #0d9a6a;
+  color: var(--accent-strong);
 }
 
 .meta dl {
@@ -95,13 +95,13 @@
 }
 
 .meta dt {
-  color: #94a3b8;
+  color: var(--ink-soft);
 }
 
 .meta dd {
   margin: 0;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--ink);
 }
 
 .parties {
@@ -115,7 +115,7 @@
   font-size: 0.75rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: #94a3b8;
+  color: var(--ink-soft);
 }
 
 table {
@@ -127,13 +127,13 @@ table {
 th,
 td {
   padding: 0.65rem 0.4rem;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--border);
   text-align: start;
   vertical-align: top;
 }
 
 th {
-  color: #64748b;
+  color: var(--ink-muted);
   font-weight: 700;
   font-size: 0.75rem;
 }
@@ -143,7 +143,7 @@ td strong {
 }
 
 td small {
-  color: #94a3b8;
+  color: var(--ink-soft);
   font-size: 0.72rem;
 }
 
@@ -152,19 +152,19 @@ td small {
   gap: 1rem;
   margin-top: 1.25rem;
   padding-top: 1rem;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid var(--border);
 }
 
 .pay span {
   display: block;
-  color: #94a3b8;
+  color: var(--ink-soft);
   font-size: 0.75rem;
   margin-bottom: 0.2rem;
 }
 
 .notes {
   margin: 0.5rem 0 0;
-  color: #64748b;
+  color: var(--ink-muted);
   font-size: 0.8rem;
 }
 
@@ -187,7 +187,7 @@ td small {
 }
 
 .totals .grand strong {
-  color: #0d9a6a;
+  color: var(--accent-strong);
 }
 
 @media (min-width: 700px) {

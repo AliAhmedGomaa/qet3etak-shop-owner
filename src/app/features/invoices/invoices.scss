@@ -2,7 +2,7 @@
   --page-pad-bottom: 2rem;
   max-width: 28rem;
   margin: 0 auto;
-  background: #f8fafc;
+  background: var(--surface-muted);
 }
 
 header {
@@ -18,7 +18,7 @@ header h1 {
 }
 
 header a {
-  color: #0d9a6a;
+  color: var(--accent-strong);
   font-weight: 700;
   text-decoration: none;
 }
@@ -32,11 +32,11 @@ header a {
   width: 100%;
   box-sizing: border-box;
   height: 2.75rem;
-  border: 1.5px solid #e2e8f0;
+  border: 1.5px solid var(--border);
   border-radius: 0.85rem;
   padding: 0 0.9rem;
   font: inherit;
-  background: #fff;
+  background: var(--surface);
 }
 
 .list {
@@ -47,8 +47,8 @@ header a {
 .card {
   display: grid;
   gap: 0.35rem;
-  background: #fff;
-  border: 1px solid #e2e8f0;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 1rem;
   padding: 0.9rem 1rem 1rem;
   text-decoration: none;
@@ -63,18 +63,18 @@ header a {
 }
 
 .top span {
-  color: #10b880;
+  color: var(--accent);
   font-weight: 800;
 }
 
 small {
-  color: #94a3b8;
+  color: var(--ink-soft);
   font-size: 0.72rem;
 }
 
 .muted {
   text-align: center;
-  color: #94a3b8;
+  color: var(--ink-soft);
   padding: 2rem 1rem;
 }
 
@@ -90,10 +90,10 @@ small {
 .pager button {
   min-height: 2.75rem;
   min-width: 5rem;
-  border: 1.5px solid #e2e8f0;
+  border: 1.5px solid var(--border);
   border-radius: 0.75rem;
-  background: #fff;
-  color: #0f172a;
+  background: var(--surface);
+  color: var(--ink);
   font: inherit;
   font-weight: 600;
   cursor: pointer;
@@ -107,7 +107,7 @@ small {
 .pager span {
   font-size: 0.85rem;
   font-weight: 600;
-  color: #64748b;
+  color: var(--ink-muted);
 }
 
 @media (min-width: 900px) {

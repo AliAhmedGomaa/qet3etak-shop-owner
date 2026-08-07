@@ -2,7 +2,7 @@
   --page-pad-bottom: 2.5rem;
   max-width: 28rem;
   margin: 0 auto;
-  background: #f8fafc;
+  background: var(--surface-muted);
 }
 
 header {
@@ -18,12 +18,12 @@ header h1 {
 
 header p {
   margin: 0.25rem 0 0;
-  color: #64748b;
+  color: var(--ink-muted);
   font-size: 0.85rem;
 }
 
 header a {
-  color: #0d9a6a;
+  color: var(--accent-strong);
   font-weight: 700;
   text-decoration: none;
 }
@@ -31,8 +31,8 @@ header a {
 .form {
   display: grid;
   gap: 0.8rem;
-  background: #fff;
-  border: 1px solid #e2e8f0;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 1rem;
   padding: 1rem;
   margin-bottom: 1.25rem;
@@ -47,11 +47,11 @@ label {
 
 input {
   min-height: 3rem;
-  border: 1.5px solid #e2e8f0;
+  border: 1.5px solid var(--border);
   border-radius: 0.75rem;
   padding: 0.6rem 0.85rem;
   font: inherit;
-  background: #f8fafc;
+  background: var(--surface-muted);
 }
 
 .row {
@@ -75,7 +75,7 @@ input {
   display: grid;
   place-items: center;
   overflow: hidden;
-  background: #f8fafc;
+  background: var(--surface-muted);
   cursor: pointer;
 }
 
@@ -93,7 +93,7 @@ input {
 }
 
 .drop em {
-  color: #94a3b8;
+  color: var(--ink-soft);
   font-style: normal;
 }
 
@@ -101,7 +101,7 @@ button[type='submit'] {
   min-height: 3rem;
   border: 0;
   border-radius: 0.85rem;
-  background: #10b880;
+  background: var(--accent);
   color: #fff;
   font: inherit;
   font-weight: 800;
@@ -121,8 +121,8 @@ article {
   display: grid;
   grid-template-columns: auto 1fr auto;
   gap: 0.75rem;
-  background: #fff;
-  border: 1px solid #e2e8f0;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 0.9rem;
   padding: 0.75rem;
   align-items: start;
@@ -133,7 +133,7 @@ article img {
   height: 64px;
   object-fit: cover;
   border-radius: 0.55rem;
-  background: #0f172a;
+  background: var(--brand);
 }
 
 article strong {
@@ -141,7 +141,7 @@ article strong {
 }
 
 article small {
-  color: #64748b;
+  color: var(--ink-muted);
   font-size: 0.75rem;
 }
 
@@ -150,8 +150,8 @@ article small {
   margin-top: 0.3rem;
   padding: 0.15rem 0.45rem;
   border-radius: 999px;
-  background: #ecfdf6;
-  color: #074a35;
+  background: var(--accent-soft);
+  color: var(--chip-ok-ink);
   font-size: 0.68rem;
   font-weight: 700;
 }
@@ -160,16 +160,16 @@ article small {
 .reply {
   margin: 0.35rem 0 0;
   font-size: 0.78rem;
-  color: #0d9a6a;
+  color: var(--accent-strong);
 }
 
 .reply {
-  color: #334155;
+  color: var(--ink);
 }
 
 .err {
-  background: #fef2f2;
-  color: #991b1b;
+  background: var(--danger-bg);
+  color: var(--danger);
   padding: 0.65rem 0.8rem;
   border-radius: 0.65rem;
   font-size: 0.85rem;
@@ -177,7 +177,7 @@ article small {
 
 .empty {
   text-align: center;
-  color: #94a3b8;
+  color: var(--ink-soft);
 }
 
 .pager {
@@ -192,10 +192,10 @@ article small {
 .pager button {
   min-height: 2.75rem;
   min-width: 5rem;
-  border: 1.5px solid #e2e8f0;
+  border: 1.5px solid var(--border);
   border-radius: 0.75rem;
-  background: #fff;
-  color: #0f172a;
+  background: var(--surface);
+  color: var(--ink);
   font: inherit;
   font-weight: 600;
   cursor: pointer;
@@ -209,7 +209,7 @@ article small {
 .pager span {
   font-size: 0.85rem;
   font-weight: 600;
-  color: #64748b;
+  color: var(--ink-muted);
 }
 
 @media (min-width: 900px) {

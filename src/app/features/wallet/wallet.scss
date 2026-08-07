@@ -21,12 +21,12 @@
 
 .wallet__header p {
   margin: 0.25rem 0 0;
-  color: #64748b;
+  color: var(--ink-muted);
   font-size: 0.85rem;
 }
 
 .wallet__header a {
-  color: #0d9a6a;
+  color: var(--accent-strong);
   font-weight: 700;
   text-decoration: none;
   min-height: 2.75rem;
@@ -35,7 +35,7 @@
 }
 
 .meter {
-  background: #0f172a;
+  background: var(--brand);
   color: #fff;
   border-radius: 1.25rem;
   padding: 1.25rem;
@@ -71,7 +71,7 @@
   position: absolute;
   inset: 0.85rem;
   border-radius: 50%;
-  background: #0f172a;
+  background: var(--brand);
 }
 
 .meter__core {
@@ -134,8 +134,8 @@ h2 {
 }
 
 .ledger li {
-  background: #fff;
-  border: 1px solid #e2e8f0;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 0.9rem;
   padding: 0.85rem 1rem;
   display: flex;
@@ -151,7 +151,7 @@ h2 {
 .ledger small,
 .ledger time {
   display: block;
-  color: #94a3b8;
+  color: var(--ink-soft);
   font-size: 0.72rem;
   margin-top: 0.15rem;
 }
@@ -173,17 +173,17 @@ h2 {
 }
 
 .amt.neg {
-  color: #0d9a6a;
+  color: var(--accent-strong);
 }
 
 .empty {
   justify-content: center;
-  color: #94a3b8;
+  color: var(--ink-soft);
 }
 
 .err {
-  background: #fef2f2;
-  color: #991b1b;
+  background: var(--danger-bg);
+  color: var(--danger);
   padding: 0.75rem;
   border-radius: 0.75rem;
 }
@@ -200,10 +200,10 @@ h2 {
 .pager button {
   min-height: 2.75rem;
   min-width: 5rem;
-  border: 1.5px solid #e2e8f0;
+  border: 1.5px solid var(--border);
   border-radius: 0.75rem;
-  background: #fff;
-  color: #0f172a;
+  background: var(--surface);
+  color: var(--ink);
   font: inherit;
   font-weight: 600;
   cursor: pointer;
@@ -217,7 +217,7 @@ h2 {
 .pager span {
   font-size: 0.85rem;
   font-weight: 600;
-  color: #64748b;
+  color: var(--ink-muted);
 }
 
 @keyframes shimmer {

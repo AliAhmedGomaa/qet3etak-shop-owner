@@ -14,7 +14,7 @@
 
 .sr__head p {
   margin: 0.25rem 0 0;
-  color: #64748b;
+  color: var(--ink-muted);
   font-size: 0.85rem;
 }
 
@@ -25,9 +25,9 @@
 }
 
 .chip {
-  border: 1.5px solid #e2e8f0;
-  background: #fff;
-  color: #475569;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  color: var(--ink-muted);
   height: 2.2rem;
   padding: 0 0.9rem;
   border-radius: 0.6rem;
@@ -38,8 +38,8 @@
 }
 
 .chip.is-on {
-  background: #10b880;
-  border-color: #10b880;
+  background: var(--accent);
+  border-color: var(--accent);
   color: #fff;
 }
 
@@ -53,7 +53,7 @@
 }
 
 .muted {
-  color: #64748b;
+  color: var(--ink-muted);
 }
 
 .kpis {
@@ -63,7 +63,7 @@
 }
 
 .kpi {
-  background: #0f172a;
+  background: var(--brand);
   color: #fff;
   border-radius: 1rem;
   padding: 0.9rem;
@@ -74,7 +74,7 @@
 
 .kpi span {
   font-size: 0.72rem;
-  color: #94a3b8;
+  color: var(--ink-soft);
 }
 
 .kpi strong {
@@ -82,8 +82,8 @@
 }
 
 .card {
-  background: #fff;
-  border: 1px solid #e2e8f0;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 1rem;
   padding: 1rem;
 }
@@ -110,7 +110,7 @@
 
 .card em {
   font-style: normal;
-  color: #64748b;
+  color: var(--ink-muted);
   white-space: nowrap;
 }
 
