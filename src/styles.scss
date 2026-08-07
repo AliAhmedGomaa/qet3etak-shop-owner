@@ -319,6 +319,7 @@ html[data-theme='dark'] {
   }
 
   .checkout .lines li,
+  .checkout .line,
   .checkout .pay-opt {
     background: var(--surface) !important;
     border-color: var(--border) !important;
@@ -326,6 +327,7 @@ html[data-theme='dark'] {
   }
 
   .checkout .lines li strong,
+  .checkout .line__title,
   .checkout .pay-opt strong,
   .checkout .qty em,
   .checkout header h1,
@@ -334,12 +336,14 @@ html[data-theme='dark'] {
   }
 
   .checkout .info span,
+  .checkout .line__meta,
   .checkout .pay-opt span,
   .checkout header p {
     color: var(--ink-muted) !important;
   }
 
-  .checkout .lt {
+  .checkout .lt,
+  .checkout .line__total {
     color: var(--accent) !important;
   }
 

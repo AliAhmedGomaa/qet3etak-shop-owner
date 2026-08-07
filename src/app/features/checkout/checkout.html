@@ -12,18 +12,49 @@
   } @else {
     <ul class="lines">
       @for (line of lines(); track line.productId) {
-        <li>
-          <img [src]="resolveMediaUrl(line.imageUrl, 'icons/icon-192x192.png')" [alt]="line.title" width="52" height="52" />
-          <div class="info">
-            <strong>{{ line.title }}</strong>
-            <span>{{ unitPrice(line.basePrice, line.quantity, line.tieredPricing) | currency: 'EGP':'symbol-narrow':'1.2-2' }} × {{ line.quantity }}</span>
-            <div class="qty">
-              <button type="button" (click)="changeQty(line.productId, line.quantity - 1)">−</button>
+        <li class="line">
+          <img
+            class="line__img"
+            [src]="resolveMediaUrl(line.imageUrl, 'icons/icon-192x192.png')"
+            [alt]="line.title"
+            width="64"
+            height="64"
+          />
+          <div class="line__body">
+            <div class="line__top">
+              <strong class="line__title">{{ line.title }}</strong>
+              <strong class="line__total">
+                {{
+                  lineTotal(line.basePrice, line.quantity, line.tieredPricing)
+                    | currency: 'EGP':'symbol-narrow':'1.2-2'
+                }}
+              </strong>
+            </div>
+            <span class="line__meta">
+              {{
+                unitPrice(line.basePrice, line.quantity, line.tieredPricing)
+                  | currency: 'EGP':'symbol-narrow':'1.2-2'
+              }}
+              × {{ line.quantity }}
+            </span>
+            <div class="qty" dir="ltr">
+              <button
+                type="button"
+                (click)="changeQty(line.productId, line.quantity - 1)"
+                aria-label="إنقاص"
+              >
+                −
+              </button>
               <em>{{ line.quantity }}</em>
-              <button type="button" (click)="changeQty(line.productId, line.quantity + 1)">+</button>
+              <button
+                type="button"
+                (click)="changeQty(line.productId, line.quantity + 1)"
+                aria-label="زيادة"
+              >
+                +
+              </button>
             </div>
           </div>
-          <strong class="lt">{{ lineTotal(line.basePrice, line.quantity, line.tieredPricing) | currency: 'EGP':'symbol-narrow':'1.2-2' }}</strong>
         </li>
       }
     </ul>
