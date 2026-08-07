@@ -3,8 +3,13 @@
   max-width: 40rem;
   margin-inline: auto;
   background:
-    radial-gradient(ellipse at top, rgba(16, 184, 128, 0.08), transparent 50%),
-    #f8fafc;
+    radial-gradient(
+      ellipse at top,
+      color-mix(in srgb, var(--accent) 12%, transparent),
+      transparent 50%
+    ),
+    var(--surface-muted);
+  color: var(--ink);
 }
 
 .catalog__header {
@@ -18,11 +23,12 @@
 .catalog__header h1 {
   margin: 0;
   font-size: 1.35rem;
+  color: var(--ink);
 }
 
 .catalog__header p {
   margin: 0.25rem 0 0;
-  color: #64748b;
+  color: var(--ink-muted);
   font-size: 0.85rem;
 }
 
@@ -39,7 +45,7 @@
   align-items: center;
   padding: 0 0.85rem;
   border-radius: 999px;
-  background: #10b880;
+  background: var(--accent);
   color: #fff;
   font-weight: 700;
   text-decoration: none;
@@ -47,7 +53,7 @@
 }
 
 .link {
-  color: #0d9a6a;
+  color: var(--accent-strong);
   font-weight: 700;
   text-decoration: none;
   min-height: 2.25rem;
@@ -71,12 +77,17 @@
 .search input {
   width: 100%;
   min-height: 3rem;
-  border: 1.5px solid #e2e8f0;
+  border: 1.5px solid var(--border);
   border-radius: 0.85rem;
   padding: 0.65rem 2.75rem 0.65rem 0.9rem;
   font: inherit;
-  background: #fff;
+  background: var(--input-bg);
+  color: var(--ink);
   transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.search input::placeholder {
+  color: var(--ink-soft);
 }
 
 .search input::-webkit-search-cancel-button {
@@ -86,8 +97,8 @@
 
 .search input:focus {
   outline: none;
-  border-color: #10b880;
-  box-shadow: 0 0 0 3px rgba(16, 184, 128, 0.2);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
 }
 
 .search__clear-icon {
@@ -100,8 +111,8 @@
   min-width: 2.25rem;
   border: 0;
   border-radius: 999px;
-  background: #f1f5f9;
-  color: #64748b;
+  background: var(--surface-muted);
+  color: var(--ink-muted);
   font: inherit;
   font-size: 0.85rem;
   line-height: 1;
@@ -110,18 +121,18 @@
 
 .search__clear-icon:hover,
 .search__clear-btn:hover {
-  background: #e2e8f0;
-  color: #0f172a;
+  background: var(--border);
+  color: var(--ink);
 }
 
 .search__clear-btn {
   min-height: 3rem;
   min-width: 4.25rem;
   padding: 0 0.9rem;
-  border: 1.5px solid #e2e8f0;
+  border: 1.5px solid var(--border);
   border-radius: 0.85rem;
-  background: #fff;
-  color: #334155;
+  background: var(--surface);
+  color: var(--ink);
   font: inherit;
   font-weight: 700;
   cursor: pointer;
@@ -144,7 +155,7 @@
   display: block;
   font-size: 0.72rem;
   font-weight: 700;
-  color: #64748b;
+  color: var(--ink-muted);
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -154,7 +165,7 @@
   height: 1.25rem;
   padding: 0 0.35rem;
   border-radius: 999px;
-  background: #0f172a;
+  background: var(--accent);
   color: #fff;
   font-size: 0.68rem;
   font-weight: 700;
@@ -167,24 +178,29 @@
   width: 100%;
   min-height: 2.4rem;
   margin-bottom: 0.45rem;
-  border: 1.5px solid #e2e8f0;
+  border: 1.5px solid var(--border);
   border-radius: 0.7rem;
   padding: 0.4rem 0.75rem;
   font: inherit;
   font-size: 0.82rem;
-  background: #f8fafc;
+  background: var(--input-bg);
+  color: var(--ink);
+}
+
+.filter-row__search::placeholder {
+  color: var(--ink-soft);
 }
 
 .filter-row__search:focus {
   outline: none;
-  border-color: #10b880;
-  background: #fff;
-  box-shadow: 0 0 0 3px rgba(16, 184, 128, 0.15);
+  border-color: var(--accent);
+  background: var(--surface);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 
 .filter-row__empty {
   font-size: 0.8rem;
-  color: #94a3b8;
+  color: var(--ink-soft);
   padding: 0.25rem 0;
 }
 
@@ -192,7 +208,7 @@
   margin-top: 0.35rem;
   border: 0;
   background: transparent;
-  color: #0d9a6a;
+  color: var(--accent-strong);
   font: inherit;
   font-size: 0.78rem;
   font-weight: 700;
@@ -211,9 +227,9 @@
   min-height: 2.5rem;
   padding: 0 0.85rem;
   border-radius: 999px;
-  border: 1.5px solid #e2e8f0;
-  background: #fff;
-  color: #334155;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  color: var(--ink);
   font: inherit;
   font-size: 0.8rem;
   font-weight: 600;
@@ -232,13 +248,13 @@
   height: 1.35rem;
   object-fit: contain;
   border-radius: 0.3rem;
-  background: #f8fafc;
+  background: var(--surface-muted);
 }
 
 .pill--on {
-  background: #0f172a;
-  border-color: #0f172a;
-  color: #fff;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #042f1e;
 }
 
 .pill--on .pill__icon {
@@ -249,7 +265,7 @@
   justify-self: start;
   border: 0;
   background: transparent;
-  color: #64748b;
+  color: var(--ink-muted);
   font: inherit;
   font-size: 0.8rem;
   font-weight: 600;
@@ -263,15 +279,15 @@
 }
 
 .err {
-  background: #fef2f2;
-  color: #991b1b;
+  background: var(--danger-bg);
+  color: var(--danger);
   padding: 0.75rem;
   border-radius: 0.75rem;
 }
 
 .empty {
   text-align: center;
-  color: #94a3b8;
+  color: var(--ink-soft);
   padding: 2rem 1rem;
 }
 
@@ -283,7 +299,12 @@
 .sk {
   height: 18rem;
   border-radius: 1rem;
-  background: linear-gradient(90deg, #e2e8f0, #f1f5f9, #e2e8f0);
+  background: linear-gradient(
+    90deg,
+    var(--border),
+    var(--surface-muted),
+    var(--border)
+  );
   background-size: 200% 100%;
   animation: shimmer 1.4s ease-in-out infinite;
 }
@@ -309,10 +330,10 @@
 .pager button {
   min-height: 2.75rem;
   min-width: 5rem;
-  border: 1.5px solid #e2e8f0;
+  border: 1.5px solid var(--border);
   border-radius: 0.75rem;
-  background: #fff;
-  color: #0f172a;
+  background: var(--surface);
+  color: var(--ink);
   font: inherit;
   font-weight: 600;
   cursor: pointer;
@@ -326,7 +347,7 @@
 .pager span {
   font-size: 0.85rem;
   font-weight: 600;
-  color: #64748b;
+  color: var(--ink-muted);
 }
 
 @media (min-width: 900px) {
@@ -349,8 +370,8 @@
   }
 
   .filters {
-    background: #fff;
-    border: 1px solid #e2e8f0;
+    background: var(--surface);
+    border: 1px solid var(--border);
     border-radius: 1rem;
     padding: 1rem 1.15rem;
   }

@@ -254,4 +254,67 @@ html[data-theme='dark'] {
   .sheet-scrim {
     background: var(--overlay) !important;
   }
+
+  /* Catalog: keep filters/cards readable when global dark overrides apply */
+  .catalog .pill {
+    background: var(--surface) !important;
+    border-color: var(--border) !important;
+    color: var(--ink) !important;
+  }
+
+  .catalog .pill--on {
+    background: var(--accent) !important;
+    border-color: var(--accent) !important;
+    color: #042f1e !important;
+  }
+
+  .catalog .pill--on .pill__icon {
+    background: #fff !important;
+  }
+
+  .catalog .filters {
+    background: var(--surface) !important;
+    border-color: var(--border) !important;
+  }
+
+  .catalog .filter-row__search,
+  .catalog .search input {
+    background: var(--input-bg) !important;
+    border-color: var(--border) !important;
+    color: var(--ink) !important;
+  }
+
+  .card .qty {
+    background: var(--surface-muted) !important;
+    border-color: var(--border) !important;
+  }
+
+  .card .qty__value {
+    color: var(--ink) !important;
+  }
+
+  .card .qty__btn {
+    background: var(--brand) !important;
+    color: var(--surface) !important;
+  }
+
+  .card .qty__btn:disabled {
+    background: var(--border-strong) !important;
+    color: var(--ink-soft) !important;
+  }
+
+  .card h3,
+  .card .unit,
+  .card .matrix-toggle {
+    color: var(--ink) !important;
+  }
+
+  .card .meta,
+  .card .per {
+    color: var(--ink-muted) !important;
+  }
+
+  .card .total {
+    color: var(--accent) !important;
+  }
 }
