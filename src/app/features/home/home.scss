@@ -303,6 +303,8 @@ html[data-theme='dark'] .home__loc-nudge strong {
 
 .cats {
   gap: 0.55rem;
+  direction: rtl;
+  justify-content: flex-start;
 }
 
 .cat {
