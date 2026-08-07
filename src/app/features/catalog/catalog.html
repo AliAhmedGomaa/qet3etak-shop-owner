@@ -117,7 +117,6 @@
         <app-product-card
           [product]="product"
           [initialQuantity]="cartQty(product.id)"
-          (quantityChange)="onQtyChange(product, $event)"
         />
       } @empty {
         <p class="empty">لا توجد منتجات مطابقة.</p>

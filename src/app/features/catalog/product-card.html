@@ -1,16 +1,24 @@
-<article class="card" dir="rtl">
-  <a class="card__media" [routerLink]="['/catalog', product().id]" aria-label="عرض تفاصيل المنتج">
+<article
+  class="card"
+  dir="rtl"
+  role="link"
+  tabindex="0"
+  [attr.aria-label]="'عرض تفاصيل ' + product().title"
+  (click)="openDetails()"
+  (keydown.enter)="openDetails()"
+>
+  <div class="card__media" aria-hidden="true">
     <img
       [src]="resolveMediaUrl(product().imageUrl, 'icons/icon-512x512.png')"
-      [alt]="product().title"
+      [alt]=""
       loading="lazy"
     />
     <span [class]="gradeClass()">{{ gradeLabel() }}</span>
-  </a>
+  </div>
 
   <div class="card__body">
     <div class="card__top">
-      <h3><a class="card__title-link" [routerLink]="['/catalog', product().id]">{{ product().title }}</a></h3>
+      <h3>{{ product().title }}</h3>
       <p class="meta">{{ product().brand }} · {{ product().model }} · {{ product().category }}</p>
       <span [class]="stockClass()">{{ stockLabelAr() }}</span>
     </div>
@@ -29,19 +37,29 @@
       <strong class="total">{{ pricing().lineTotal | currency: 'EGP':'symbol-narrow':'1.2-2' }}</strong>
     </div>
 
-    <div class="qty" [class.qty--disabled]="product().stockQuantity <= 0">
-      <button type="button" class="qty__btn" (click)="dec()" [disabled]="qty() <= 1 || product().stockQuantity <= 0" aria-label="إنقاص">−</button>
-      <span class="qty__value">{{ qty() }}</span>
-      <button type="button" class="qty__btn" (click)="inc()" [disabled]="product().stockQuantity <= 0 || qty() >= product().stockQuantity" aria-label="زيادة">+</button>
+    <div class="actions" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
+      <div class="qty" [class.qty--disabled]="product().stockQuantity <= 0">
+        <button type="button" class="qty__btn" (click)="dec()" [disabled]="qty() <= 1 || product().stockQuantity <= 0" aria-label="إنقاص">−</button>
+        <span class="qty__value">{{ qty() }}</span>
+        <button type="button" class="qty__btn" (click)="inc()" [disabled]="product().stockQuantity <= 0 || qty() >= product().stockQuantity" aria-label="زيادة">+</button>
+      </div>
+      <button
+        type="button"
+        class="add"
+        (click)="addToCart()"
+        [disabled]="product().stockQuantity <= 0"
+      >
+        {{ product().stockQuantity <= 0 ? 'غير متوفر' : (added() ? 'تم التحديث ✓' : 'أضف إلى السلة') }}
+      </button>
     </div>
 
-    <button type="button" class="matrix-toggle" (click)="toggleMatrix()">
+    <button type="button" class="matrix-toggle" (click)="toggleMatrix($event)">
       {{ matrixOpen() ? 'إخفاء أسعار الجملة' : 'عرض أسعار الجملة' }}
       <span aria-hidden="true">{{ matrixOpen() ? '▴' : '▾' }}</span>
     </button>
 
     @if (matrixOpen()) {
-      <table class="matrix">
+      <table class="matrix" (click)="$event.stopPropagation()">
         <thead>
           <tr>
             <th>الكمية</th>

@@ -354,10 +354,4 @@ export class Catalog implements OnInit {
     });
   }
 
-  protected onQtyChange(
-    product: CatalogProduct,
-    event: { productId: string; quantity: number },
-  ): void {
-    this.cart.setQuantity(product, event.quantity);
-  }
 }

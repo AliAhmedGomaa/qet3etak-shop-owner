@@ -3,34 +3,34 @@ import {
   Component,
   computed,
   effect,
+  inject,
   input,
-  output,
   signal,
 } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
+import { CartService } from '../../core/cart/cart.service';
 import { CatalogProduct, resolveUnitPrice } from '../../core/catalog/catalog.models';
 import { resolveMediaUrl } from '../../core/media/media-url';
 
 @Component({
   selector: 'app-product-card',
-  imports: [CurrencyPipe, RouterLink],
+  imports: [CurrencyPipe],
   templateUrl: './product-card.html',
   styleUrl: './product-card.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductCard {
+  private readonly router = inject(Router);
+  private readonly cart = inject(CartService);
+
   readonly product = input.required<CatalogProduct>();
   /** Hydrate from cart when browsing (0 = show 1 for preview pricing). */
   readonly initialQuantity = input(0);
-  readonly quantityChange = output<{
-    productId: string;
-    quantity: number;
-    lineTotal: number;
-  }>();
 
   protected readonly qty = signal(1);
   protected readonly matrixOpen = signal(false);
+  protected readonly added = signal(false);
   protected readonly resolveMediaUrl = resolveMediaUrl;
 
   constructor() {
@@ -82,27 +82,31 @@ export class ProductCard {
     return 'grade grade--generic';
   });
 
+  protected openDetails(): void {
+    void this.router.navigate(['/catalog', this.product().id]);
+  }
+
   protected inc(): void {
     const max = this.product().stockQuantity;
     if (max <= 0) return;
     this.qty.update((q) => Math.min(max, q + 1));
-    this.emitQty();
+    this.added.set(false);
   }
 
   protected dec(): void {
     this.qty.update((q) => Math.max(1, q - 1));
-    this.emitQty();
+    this.added.set(false);
   }
 
-  protected toggleMatrix(): void {
+  protected addToCart(): void {
+    const p = this.product();
+    if (!p || p.stockQuantity <= 0) return;
+    this.cart.setQuantity(p, this.qty());
+    this.added.set(true);
+  }
+
+  protected toggleMatrix(event: Event): void {
+    event.stopPropagation();
     this.matrixOpen.update((v) => !v);
-  }
-
-  private emitQty(): void {
-    this.quantityChange.emit({
-      productId: this.product().id,
-      quantity: this.qty(),
-      lineTotal: this.pricing().lineTotal,
-    });
   }
 }
