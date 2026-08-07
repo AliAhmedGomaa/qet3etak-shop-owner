@@ -35,8 +35,11 @@
 }
 
 .meter {
-  background: var(--brand);
-  color: #fff;
+  /* Always a dark hero card — never --brand (flips light in dark theme) */
+  --meter-bg: #0f172a;
+  --meter-ink: #f8fafc;
+  background: var(--meter-bg);
+  color: var(--meter-ink);
   border-radius: 1.25rem;
   padding: 1.25rem;
   display: grid;
@@ -71,7 +74,7 @@
   position: absolute;
   inset: 0.85rem;
   border-radius: 50%;
-  background: var(--brand);
+  background: var(--meter-bg);
 }
 
 .meter__core {
