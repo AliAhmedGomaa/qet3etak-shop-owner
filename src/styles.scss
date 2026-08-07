@@ -435,7 +435,8 @@ html[data-theme='dark'] {
 
   .orders .card strong,
   .invoices .card strong,
-  .wallet strong,
+  .wallet .ledger strong,
+  .wallet .amt,
   .home h1,
   .home h2,
   .orders h1,
@@ -451,7 +452,9 @@ html[data-theme='dark'] {
 
   .orders .card small,
   .invoices .card small,
-  .wallet small,
+  .wallet .ledger small,
+  .wallet .ledger time,
+  .wallet .amt small,
   .home .muted,
   .block__head a {
     color: var(--ink-muted) !important;
@@ -469,5 +472,42 @@ html[data-theme='dark'] {
     background: var(--accent-soft) !important;
     border-color: color-mix(in srgb, var(--accent) 40%, var(--border)) !important;
     color: var(--chip-ok-ink) !important;
+  }
+
+  /* Wallet credit meter stays a dark hero card in both themes */
+  .wallet .meter {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+  }
+
+  .wallet .meter__core,
+  .wallet .meter__core strong,
+  .wallet .meter__stats,
+  .wallet .meter__stats strong {
+    color: #f8fafc !important;
+  }
+
+  .wallet .meter__core span,
+  .wallet .meter__stats span {
+    color: rgba(248, 250, 252, 0.65) !important;
+  }
+
+  .wallet .meter__ring::before {
+    background: #0f172a !important;
+  }
+
+  .wallet .ledger li {
+    background: var(--surface) !important;
+    border-color: var(--border) !important;
+    color: var(--ink) !important;
+  }
+
+  .wallet .ledger strong {
+    color: var(--ink) !important;
+  }
+
+  .wallet .ledger small,
+  .wallet .ledger time {
+    color: var(--ink-muted) !important;
   }
 }
