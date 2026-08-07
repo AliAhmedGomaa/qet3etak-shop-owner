@@ -119,3 +119,9 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (min-width: 900px) {
+  .sr {
+    max-width: none;
+  }
+}

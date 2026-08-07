@@ -21,7 +21,7 @@ import { OrderStepper } from './order-stepper';
   imports: [CurrencyPipe, DatePipe, RouterLink, OrderStepper],
   template: `
     <section class="detail safe-area-page" dir="rtl">
-      <a routerLink="/orders">← الطلبات</a>
+      <a routerLink="/orders">→ الطلبات</a>
       @if (order(); as o) {
         <h1>{{ o.orderNumber }}</h1>
         <app-order-stepper [status]="o.status" />
@@ -174,7 +174,7 @@ import { OrderStepper } from './order-stepper';
     }
     .timeline span { display: block; color: #94a3b8; font-size: 0.75rem; margin-top: 0.15rem; }
     @media (min-width: 900px) {
-      .detail { max-width: 44rem; }
+      .detail { max-width: none; }
       h1 { font-size: 1.75rem; }
     }
   `,

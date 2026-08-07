@@ -4,6 +4,12 @@
   margin: 0 auto;
 }
 
+@media (min-width: 900px) {
+  .detail {
+    max-width: none;
+  }
+}
+
 .detail__topbar {
   display: flex;
   align-items: center;

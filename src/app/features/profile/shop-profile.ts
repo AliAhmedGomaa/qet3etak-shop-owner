@@ -74,7 +74,8 @@ import {
     .page {
       display: grid;
       gap: 1.1rem;
-      max-width: 36rem;
+      max-width: 48rem;
+      width: 100%;
     }
     header h1 {
       margin: 0 0 0.35rem;
